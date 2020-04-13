@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15702" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="e5b-0c-Bgj">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15704"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--HomeVC-->
+        <scene sceneID="tne-QT-ifu">
+            <objects>
+                <viewController storyboardIdentifier="HomeVC" id="BYZ-38-t0r" customClass="HomeVC" customModule="Motion_Comic" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jPz-37-VVp">
+                                <rect key="frame" x="0.0" y="88" width="414" height="774"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="0I0-O3-lHZ">
+                                        <rect key="frame" x="50" y="362" width="314" height="50"/>
+                                        <color key="backgroundColor" red="0.94901960780000005" green="0.22352941179999999" blue="0.18823529410000001" alpha="1" colorSpace="calibratedRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="50" id="cYu-Cu-uFw"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="system" pointSize="21"/>
+                                        <state key="normal" title="Open File">
+                                            <color key="titleColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        </state>
+                                        <userDefinedRuntimeAttributes>
+                                            <userDefinedRuntimeAttribute type="number" keyPath="cornerRadius">
+                                                <integer key="value" value="25"/>
+                                            </userDefinedRuntimeAttribute>
+                                        </userDefinedRuntimeAttributes>
+                                        <connections>
+                                            <action selector="openFileTapped:" destination="BYZ-38-t0r" eventType="touchUpInside" id="aNv-xK-CTJ"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="0I0-O3-lHZ" secondAttribute="trailing" constant="50" id="GOR-lI-96R"/>
+                                    <constraint firstItem="0I0-O3-lHZ" firstAttribute="centerY" secondItem="jPz-37-VVp" secondAttribute="centerY" id="M3B-gG-r4w"/>
+                                    <constraint firstItem="0I0-O3-lHZ" firstAttribute="top" secondItem="jPz-37-VVp" secondAttribute="top" constant="50" id="MeW-IG-GUE"/>
+                                    <constraint firstItem="0I0-O3-lHZ" firstAttribute="leading" secondItem="jPz-37-VVp" secondAttribute="leading" constant="50" id="hlN-0r-bU2"/>
+                                </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="MeW-IG-GUE"/>
+                                    </mask>
+                                </variation>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <constraints>
+                            <constraint firstItem="jPz-37-VVp" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="MYE-4g-ljE"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="jPz-37-VVp" secondAttribute="bottom" id="MlD-57-zYf"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="jPz-37-VVp" secondAttribute="trailing" id="Ppf-k3-APt"/>
+                            <constraint firstItem="jPz-37-VVp" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="pbC-LO-snk"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
+                    </view>
+                    <navigationItem key="navigationItem" id="u2A-BA-K5Y"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="890" y="139"/>
+        </scene>
+        <!--PathVC-->
+        <scene sceneID="vr0-QZ-DMr">
+            <objects>
+                <viewController storyboardIdentifier="PathVC" id="1co-AK-SPu" customClass="PathVC" customModule="Motion_Comic" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ukP-86-eET">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" textAlignment="natural" translatesAutoresizingMaskIntoConstraints="NO" id="QMK-CH-Eau">
+                                <rect key="frame" x="20" y="64" width="374" height="778"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                                <color key="textColor" systemColor="labelColor" cocoaTouchSystemColor="darkTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <textInputTraits key="textInputTraits" autocapitalizationType="sentences"/>
+                                <connections>
+                                    <outlet property="delegate" destination="1co-AK-SPu" id="Gxc-l4-ica"/>
+                                </connections>
+                            </textView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="vUA-zI-2oE" firstAttribute="bottom" secondItem="QMK-CH-Eau" secondAttribute="bottom" constant="20" id="Afi-Y7-JwS"/>
+                            <constraint firstItem="vUA-zI-2oE" firstAttribute="trailing" secondItem="QMK-CH-Eau" secondAttribute="trailing" constant="20" id="SCw-KT-K6R"/>
+                            <constraint firstItem="QMK-CH-Eau" firstAttribute="top" secondItem="vUA-zI-2oE" secondAttribute="top" constant="20" id="ZJJ-IV-jDi"/>
+                            <constraint firstItem="QMK-CH-Eau" firstAttribute="leading" secondItem="vUA-zI-2oE" secondAttribute="leading" constant="20" id="v00-nO-vZf"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="vUA-zI-2oE"/>
+                    </view>
+                    <connections>
+                        <outlet property="txtPath" destination="QMK-CH-Eau" id="tpS-eq-C2I"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="tCH-8L-G5p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1581" y="139"/>
+        </scene>
+        <!--Navigation Controller-->
+        <scene sceneID="Cbw-wI-kSf">
+            <objects>
+                <navigationController automaticallyAdjustsScrollViewInsets="NO" id="e5b-0c-Bgj" sceneMemberID="viewController">
+                    <toolbarItems/>
+                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZOS-Ka-rUN">
+                        <rect key="frame" x="0.0" y="44" width="414" height="44"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                    </navigationBar>
+                    <nil name="viewControllers"/>
+                    <connections>
+                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="dA7-kj-wsW"/>
+                    </connections>
+                </navigationController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="3vE-1T-W1p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="131.8840579710145" y="138.61607142857142"/>
+        </scene>
+    </scenes>
+</document>
