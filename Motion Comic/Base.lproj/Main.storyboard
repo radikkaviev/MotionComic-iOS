@@ -86,6 +86,10 @@
                                     <outlet property="delegate" destination="1co-AK-SPu" id="Gxc-l4-ica"/>
                                 </connections>
                             </textView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="7iu-Oe-uDi">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                                <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                            </imageView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -97,12 +101,13 @@
                         <viewLayoutGuide key="safeArea" id="vUA-zI-2oE"/>
                     </view>
                     <connections>
+                        <outlet property="imgView" destination="7iu-Oe-uDi" id="YX1-lB-Nzf"/>
                         <outlet property="txtPath" destination="QMK-CH-Eau" id="tpS-eq-C2I"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="tCH-8L-G5p" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="1581" y="139"/>
+            <point key="canvasLocation" x="1579.7101449275362" y="138.61607142857142"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="Cbw-wI-kSf">

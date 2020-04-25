@@ -11,15 +11,22 @@ import AVFoundation
 import CoreMedia
 import Photos
 import MobileCoreServices
+import WebKit
+import AVKit
+import JavaScriptCore
 
-class HomeVC: UIViewController {
+
+class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate {
+    @IBOutlet var img:UIImageView!
     
-    //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        // Do any additional setup after loading the view.
     }
+    
+    @IBAction func btnOpenFile(sender:UIButton){
+        self.openCloud()
+    }
+    
 }
 
 //MARK:- UIDocumentPickerDelegate
@@ -27,11 +34,11 @@ extension HomeVC: UIDocumentPickerDelegate {
     
     func openCloud() {
         
-        let documentPickerController = UIDocumentPickerViewController(documentTypes: [String(kUTTypePDF), String(kUTTypeImage), String(kUTTypePlainText), String(kUTTypeMP3), String(kUTTypeFont), String(kUTTypeRTFD), String(kUTTypeContent), String(kUTTypeSpreadsheet), String(kAudioFileGlobalInfo_UTIsForType)], in: .import)
+        let documentPickerController = UIDocumentPickerViewController(documentTypes: ["public.item"], in: .import)
         documentPickerController.delegate = self
         documentPickerController.modalPresentationStyle = UIModalPresentationStyle.fullScreen
         self.present(documentPickerController, animated: true, completion: nil)
-
+        
     }
     
     func documentPickerWasCancelled(_ controller: UIDocumentPickerViewController) {
@@ -42,12 +49,32 @@ extension HomeVC: UIDocumentPickerDelegate {
     
     func documentPicker(_ controller: UIDocumentPickerViewController, didPickDocumentsAt urls: [URL]) {
         
-        if controller.documentPickerMode == UIDocumentPickerMode.import {
-                       
-            let pathVC = storyBoard.instantiateViewController(withIdentifier: "PathVC") as! PathVC
-            pathVC.selectedPath = urls.first?.absoluteString ?? ""
-            self.navigationController?.pushViewController(pathVC, animated: true)
+        if let filename =  urls.first?.pathExtension {
+            if(filename != "data"){
+                Helper.ShowAlert(title: "Alert", message: "Invalid File", btntitle: "OK", vc: self)
+                return;
+            }
+        }
+        var result:Bool = false;
+        Helper.ShowLoadder(message: "Processing..")
+        DispatchQueue.global(qos: .background).async {
+            let filedata = NSData.init(contentsOf: urls.first!)
+            result = FileHelper.shared.SaveFile(withFileName: "STK.zip", data: filedata!)
+            
+            DispatchQueue.main.async {
+                if(!result){
+                    Helper.ShowAlert(title: "Failed", message: "Unable to use file.", btntitle: "OK", vc: self)
+                }
+                else{
+                    if controller.documentPickerMode == UIDocumentPickerMode.import {
                         
+                        let pathVC = storyBoard.instantiateViewController(withIdentifier: "PathVC") as! PathVC
+                        self.navigationController?.pushViewController(pathVC, animated: true)
+                        
+                    }
+                    Helper.HideLoadder()
+                }
+            }
         }
     }
     
@@ -62,7 +89,7 @@ extension HomeVC: UIDocumentPickerDelegate {
 extension HomeVC {
     
     @IBAction func openFileTapped(_ sender: UIButton) {
-     
+        
         self.openCloud()
         
     }

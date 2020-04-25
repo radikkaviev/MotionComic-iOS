@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -14,6 +14,20 @@
 		016EC9A224442BBB0061EC1A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016EC9A124442BBB0061EC1A /* HomeVC.swift */; };
 		016EC9A424449A1E0061EC1A /* PathVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016EC9A324449A1E0061EC1A /* PathVC.swift */; };
 		016EC9A624449A970061EC1A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016EC9A524449A970061EC1A /* Constant.swift */; };
+		1874BF09244B4869006D8897 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1874BF08244B4869006D8897 /* AVFoundation.framework */; };
+		187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FD2451A7D7006B7411 /* FileHelper.swift */; };
+		18761A0024521211006B7411 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FF24521211006B7411 /* Helper.swift */; };
+		189F1AF4245360E700F39854 /* Motion Comic-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F1AF3245360E700F39854 /* Motion Comic-Bridging-Header.m */; };
+		189F1AF6245364D700F39854 /* ARFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F1AF5245364D700F39854 /* ARFileManager.swift */; };
+		18EAD35C24542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18EAD35724542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm */; };
+		18EAD35D24542ADF00BE8CA8 /* IDZAQAudioPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 18EAD35B24542ADF00BE8CA8 /* IDZAQAudioPlayer.m */; };
+		18EAD36124542B5100BE8CA8 /* Vorbis.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EAD36024542B5100BE8CA8 /* Vorbis.framework */; };
+		18EAD36324542C3A00BE8CA8 /* AudioToolbox.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EAD36224542C3A00BE8CA8 /* AudioToolbox.framework */; };
+		18EAD36524542C5100BE8CA8 /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EAD36424542C5100BE8CA8 /* CoreGraphics.framework */; };
+		18EAD36724542C5800BE8CA8 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EAD36624542C5800BE8CA8 /* UIKit.framework */; };
+		18EAD36924542C6A00BE8CA8 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EAD36824542C6A00BE8CA8 /* Foundation.framework */; };
+		18EAD36A2454394300BE8CA8 /* Ogg.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 18EAD35E24542B4500BE8CA8 /* Ogg.framework */; };
+		2FB2A3C7BAD96BBE2C588653 /* Pods_Motion_Comic.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = B60D2BCC7B16B29951DF04D8 /* Pods_Motion_Comic.framework */; settings = {ATTRIBUTES = (Required, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +40,29 @@
 		016EC9A124442BBB0061EC1A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		016EC9A324449A1E0061EC1A /* PathVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathVC.swift; sourceTree = "<group>"; };
 		016EC9A524449A970061EC1A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		1874BF08244B4869006D8897 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
+		1874BF0A244B48A6006D8897 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
+		187619FD2451A7D7006B7411 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
+		187619FF24521211006B7411 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		189F1AF2245360E700F39854 /* Motion Comic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Motion Comic-Bridging-Header.h"; sourceTree = "<group>"; };
+		189F1AF3245360E700F39854 /* Motion Comic-Bridging-Header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Motion Comic-Bridging-Header.m"; sourceTree = "<group>"; };
+		189F1AF5245364D700F39854 /* ARFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARFileManager.swift; sourceTree = "<group>"; };
+		18EAD35524542ADF00BE8CA8 /* IDZAQAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZAQAudioPlayer.h; sourceTree = "<group>"; };
+		18EAD35624542ADF00BE8CA8 /* IDZAudioPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZAudioPlayer.h; sourceTree = "<group>"; };
+		18EAD35724542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; path = IDZOggVorbisFileDecoder.mm; sourceTree = "<group>"; };
+		18EAD35824542ADF00BE8CA8 /* IDZTrace.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZTrace.h; sourceTree = "<group>"; };
+		18EAD35924542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZOggVorbisFileDecoder.h; sourceTree = "<group>"; };
+		18EAD35A24542ADF00BE8CA8 /* IDZAudioDecoder.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = IDZAudioDecoder.h; sourceTree = "<group>"; };
+		18EAD35B24542ADF00BE8CA8 /* IDZAQAudioPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = IDZAQAudioPlayer.m; sourceTree = "<group>"; };
+		18EAD35E24542B4500BE8CA8 /* Ogg.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Ogg.framework; path = Frameworks/IDZPrecompiledOgg/Ogg.framework; sourceTree = "<group>"; };
+		18EAD36024542B5100BE8CA8 /* Vorbis.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Vorbis.framework; path = Frameworks/IDZPrecompiledVorbis/Vorbis.framework; sourceTree = "<group>"; };
+		18EAD36224542C3A00BE8CA8 /* AudioToolbox.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AudioToolbox.framework; path = System/Library/Frameworks/AudioToolbox.framework; sourceTree = SDKROOT; };
+		18EAD36424542C5100BE8CA8 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
+		18EAD36624542C5800BE8CA8 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
+		18EAD36824542C6A00BE8CA8 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		775BF85384F65F9BF647759A /* Pods-Motion Comic.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Motion Comic.release.xcconfig"; path = "Target Support Files/Pods-Motion Comic/Pods-Motion Comic.release.xcconfig"; sourceTree = "<group>"; };
+		B60D2BCC7B16B29951DF04D8 /* Pods_Motion_Comic.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Motion_Comic.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		FF3286084C8EAF64BA686A3A /* Pods-Motion Comic.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Motion Comic.debug.xcconfig"; path = "Target Support Files/Pods-Motion Comic/Pods-Motion Comic.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,6 +70,14 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				18EAD36124542B5100BE8CA8 /* Vorbis.framework in Frameworks */,
+				18EAD36A2454394300BE8CA8 /* Ogg.framework in Frameworks */,
+				18EAD36924542C6A00BE8CA8 /* Foundation.framework in Frameworks */,
+				18EAD36724542C5800BE8CA8 /* UIKit.framework in Frameworks */,
+				18EAD36524542C5100BE8CA8 /* CoreGraphics.framework in Frameworks */,
+				18EAD36324542C3A00BE8CA8 /* AudioToolbox.framework in Frameworks */,
+				1874BF09244B4869006D8897 /* AVFoundation.framework in Frameworks */,
+				2FB2A3C7BAD96BBE2C588653 /* Pods_Motion_Comic.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -44,6 +89,8 @@
 			children = (
 				01385B592444264500214B94 /* Motion Comic */,
 				01385B582444264500214B94 /* Products */,
+				1874BF07244B4869006D8897 /* Frameworks */,
+				E17F14A623C34711E55D21B7 /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -58,6 +105,8 @@
 		01385B592444264500214B94 /* Motion Comic */ = {
 			isa = PBXGroup;
 			children = (
+				18EAD35424542A4E00BE8CA8 /* IDZAudioPlayer */,
+				1874BF13244B63D8006D8897 /* Resources */,
 				016EC9A524449A970061EC1A /* Constant.swift */,
 				01385B5A2444264500214B94 /* AppDelegate.swift */,
 				016EC9A124442BBB0061EC1A /* HomeVC.swift */,
@@ -66,8 +115,59 @@
 				01385B612444264A00214B94 /* Assets.xcassets */,
 				01385B632444264A00214B94 /* LaunchScreen.storyboard */,
 				01385B662444264A00214B94 /* Info.plist */,
+				189F1AF3245360E700F39854 /* Motion Comic-Bridging-Header.m */,
+				189F1AF2245360E700F39854 /* Motion Comic-Bridging-Header.h */,
 			);
 			path = "Motion Comic";
+			sourceTree = "<group>";
+		};
+		1874BF07244B4869006D8897 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				18EAD36824542C6A00BE8CA8 /* Foundation.framework */,
+				18EAD36624542C5800BE8CA8 /* UIKit.framework */,
+				18EAD36424542C5100BE8CA8 /* CoreGraphics.framework */,
+				18EAD36224542C3A00BE8CA8 /* AudioToolbox.framework */,
+				18EAD36024542B5100BE8CA8 /* Vorbis.framework */,
+				18EAD35E24542B4500BE8CA8 /* Ogg.framework */,
+				1874BF0A244B48A6006D8897 /* AVKit.framework */,
+				1874BF08244B4869006D8897 /* AVFoundation.framework */,
+				B60D2BCC7B16B29951DF04D8 /* Pods_Motion_Comic.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		1874BF13244B63D8006D8897 /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				187619FD2451A7D7006B7411 /* FileHelper.swift */,
+				187619FF24521211006B7411 /* Helper.swift */,
+				189F1AF5245364D700F39854 /* ARFileManager.swift */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		18EAD35424542A4E00BE8CA8 /* IDZAudioPlayer */ = {
+			isa = PBXGroup;
+			children = (
+				18EAD35524542ADF00BE8CA8 /* IDZAQAudioPlayer.h */,
+				18EAD35B24542ADF00BE8CA8 /* IDZAQAudioPlayer.m */,
+				18EAD35A24542ADF00BE8CA8 /* IDZAudioDecoder.h */,
+				18EAD35624542ADF00BE8CA8 /* IDZAudioPlayer.h */,
+				18EAD35924542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.h */,
+				18EAD35724542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm */,
+				18EAD35824542ADF00BE8CA8 /* IDZTrace.h */,
+			);
+			path = IDZAudioPlayer;
+			sourceTree = "<group>";
+		};
+		E17F14A623C34711E55D21B7 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FF3286084C8EAF64BA686A3A /* Pods-Motion Comic.debug.xcconfig */,
+				775BF85384F65F9BF647759A /* Pods-Motion Comic.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -77,9 +177,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 01385B692444264A00214B94 /* Build configuration list for PBXNativeTarget "Motion Comic" */;
 			buildPhases = (
+				3374A6EC222E30673BDA1D68 /* [CP] Check Pods Manifest.lock */,
 				01385B532444264500214B94 /* Sources */,
 				01385B542444264500214B94 /* Frameworks */,
 				01385B552444264500214B94 /* Resources */,
+				DC374EEEF2D749162D51B6CD /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -102,6 +204,7 @@
 				TargetAttributes = {
 					01385B562444264500214B94 = {
 						CreatedOnToolsVersion = 10.3;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -136,6 +239,48 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		3374A6EC222E30673BDA1D68 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Motion Comic-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		DC374EEEF2D749162D51B6CD /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 12;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Motion Comic/Pods-Motion Comic-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Motion Comic/Pods-Motion Comic-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Motion Comic/Pods-Motion Comic-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		01385B532444264500214B94 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
@@ -143,8 +288,14 @@
 			files = (
 				01385B5B2444264500214B94 /* AppDelegate.swift in Sources */,
 				016EC9A424449A1E0061EC1A /* PathVC.swift in Sources */,
+				187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */,
 				016EC9A224442BBB0061EC1A /* HomeVC.swift in Sources */,
+				189F1AF6245364D700F39854 /* ARFileManager.swift in Sources */,
+				189F1AF4245360E700F39854 /* Motion Comic-Bridging-Header.m in Sources */,
 				016EC9A624449A970061EC1A /* Constant.swift in Sources */,
+				18761A0024521211006B7411 /* Helper.swift in Sources */,
+				18EAD35C24542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm in Sources */,
+				18EAD35D24542ADF00BE8CA8 /* IDZAQAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -205,6 +356,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_BITCODE = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -227,6 +379,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 			};
 			name = Debug;
@@ -266,6 +419,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_BITCODE = NO;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu11;
@@ -281,6 +435,7 @@
 				MTL_FAST_MATH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-O";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -288,41 +443,72 @@
 		};
 		01385B6A2444264A00214B94 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF3286084C8EAF64BA686A3A /* Pods-Motion Comic.debug.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.0;
-				DEVELOPMENT_TEAM = XDKUMPXXV6;
+				DEVELOPMENT_TEAM = 5HDJ8V6J59;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/IDZPrecompiledOgg",
+					"$(PROJECT_DIR)/Frameworks/IDZPrecompiledVorbis",
+				);
 				INFOPLIST_FILE = "Motion Comic/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = kb.Motion.Comic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "KB Wild Card";
+				PROVISIONING_PROFILE_SPECIFIER = "VS: WildCard Development";
+				SWIFT_OBJC_BRIDGING_HEADER = "Motion Comic/Motion Comic-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64 arm64e";
 			};
 			name = Debug;
 		};
 		01385B6B2444264A00214B94 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 775BF85384F65F9BF647759A /* Pods-Motion Comic.release.xcconfig */;
 			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD)";
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 1.0;
-				DEVELOPMENT_TEAM = XDKUMPXXV6;
+				DEVELOPMENT_TEAM = 5HDJ8V6J59;
+				ENABLE_BITCODE = NO;
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Frameworks/IDZPrecompiledOgg",
+					"$(PROJECT_DIR)/Frameworks/IDZPrecompiledVorbis",
+				);
 				INFOPLIST_FILE = "Motion Comic/Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
+				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = kb.Motion.Comic;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE_SPECIFIER = "KB Wild Card";
+				PROVISIONING_PROFILE_SPECIFIER = "VS: WildCard Development";
+				SWIFT_OBJC_BRIDGING_HEADER = "Motion Comic/Motion Comic-Bridging-Header.h";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
+				VALID_ARCHS = "armv7 armv7s arm64 arm64e";
 			};
 			name = Release;
 		};

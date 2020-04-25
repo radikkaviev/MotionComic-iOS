@@ -1,0 +1,20 @@
+PODS:
+  - SwiftSpinner (2.1.0)
+  - Zip (1.1.0)
+
+DEPENDENCIES:
+  - SwiftSpinner
+  - Zip (~> 1.1)
+
+SPEC REPOS:
+  https://github.com/cocoapods/specs.git:
+    - SwiftSpinner
+    - Zip
+
+SPEC CHECKSUMS:
+  SwiftSpinner: 0f15c006307f8d8bbac075638927ec1361b565d7
+  Zip: 8877eede3dda76bcac281225c20e71c25270774c
+
+PODFILE CHECKSUM: a2ccf9cffb4730add6af8d5aeb14ea08a393fbe3
+
+COCOAPODS: 1.7.5
