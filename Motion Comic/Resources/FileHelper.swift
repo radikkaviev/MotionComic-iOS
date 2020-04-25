@@ -25,7 +25,7 @@ public class FileHelper{
     }
     
     private  func append(toPath path: String,
-                               withPathComponent pathComponent: String) -> String? {
+                         withPathComponent pathComponent: String) -> String? {
         if var pathURL = URL(string: path) {
             pathURL.appendPathComponent(pathComponent)
             
@@ -36,8 +36,8 @@ public class FileHelper{
     }
     
     public  func save(text: String,
-                            toDirectory directory: String,
-                            withFileName fileName: String) {
+                      toDirectory directory: String,
+                      withFileName fileName: String) {
         guard let filePath = self.append(toPath: directory,
                                          withPathComponent: fileName) else {
                                             return
@@ -56,7 +56,7 @@ public class FileHelper{
     }
     
     public  func Copy(fromDirectory: String,
-                            withFileName fileName: String) {
+                      withFileName fileName: String) {
         guard let filePath = self.append(toPath:  self.documentDirectory(),
                                          withPathComponent: fileName) else {
                                             return
@@ -178,9 +178,12 @@ public class FileHelper{
             DeleteZipFile(withFileName: "STK.zip")
             let senarioJSOn = read(fromDocumentsWithFileName: "STK/scenario/main.sc")
             Helper.senarioDic = Helper.convertToDictionary(text: senarioJSOn)
-            Helper.senarioDicDataArr = (Helper.senarioDic!["data"] as! [String:AnyObject]).sorted { $0.key < $1.key } as [AnyObject]
-            //var dic = (Helper.senarioDicDataArr)[0]
-            //print(dic);
+            Helper.senarioAllKeys.removeAll()
+            for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
+                Helper.senarioAllKeys.append(key);
+            }
+            Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
+            print(Helper.senarioAllKeys)
             return unzipDirectory.absoluteString;
         }
         catch {
@@ -298,7 +301,7 @@ public class FileHelper{
         DispatchQueue.global(qos: .background).async {
             do {
                 guard let filePath = self.append(toPath: self.documentDirectory(),
-                                                 withPathComponent: playFile) else {
+                                                 withPathComponent: "STK/resource/\(playFile)") else {
                                                     return
                 }
                 if(self.fileManager.fileExists(atPath: filePath)){
@@ -321,7 +324,7 @@ public class FileHelper{
         DispatchQueue.global(qos: .default).async {
             do {
                 guard let filePath = self.append(toPath: self.documentDirectory(),
-                                                 withPathComponent: playFile) else {
+                                                 withPathComponent: "STK/resource/\(playFile)") else {
                                                     return
                 }
                 if(self.fileManager.fileExists(atPath: filePath)){
@@ -333,9 +336,20 @@ public class FileHelper{
             catch {
                 print("Something went wrong")
             }
-        DispatchQueue.main.async {
-            
+            DispatchQueue.main.async {
+                
+            }
         }
+    }
+    
+    public func StopPlayer(){
+        if((self.avPlayer) != nil){
+            self.avPlayer?.stop()
+        }
+    }
+    public func StopOggPlayer(){
+        if((self.oggPlayer) != nil){
+            self.oggPlayer?.stop()
         }
     }
 }
