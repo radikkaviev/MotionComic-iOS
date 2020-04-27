@@ -86,3 +86,9 @@ extension UIView {
             }, completion: nil)
     }
 }
+
+extension Int {
+    var msToSeconds: Double {
+        return Double(self) / 1000
+    }
+}

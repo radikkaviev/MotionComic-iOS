@@ -31,7 +31,7 @@ class PathVC: UIViewController {
     
     @objc func LoadAnimation(){
         
-        if index < 5 {
+        if index < 8 {
             if(Helper.senarioAllKeys.count==0){
                 Helper.ShowAlert(title: "", message: "No Source Found.", btntitle: "OK", vc: self)
                 return

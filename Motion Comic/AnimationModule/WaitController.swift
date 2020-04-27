@@ -14,7 +14,7 @@ class WaitController: NSObject {
     public func SetAnimation(dic:[String:AnyObject],vc:PathVC){
         self._vc = vc;
         vc.index = vc.index + 1
-        let time = Int(((dic["time"] as! [String:AnyObject])["value"] as! String))!/1000000
+        let time = Int(((dic["time"] as! [String:AnyObject])["value"] as! String))!/1000
         vc.CallWaitMethod(time: time)
     }
 }

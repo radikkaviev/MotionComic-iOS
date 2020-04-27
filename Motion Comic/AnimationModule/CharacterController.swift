@@ -27,38 +27,41 @@ class CharacterController: NSObject {
         var wait:Bool?
         var imageURL:String = ""
         
-        if let ancherXval = Double(((dic["anchorX"] as! [String:AnyObject])["value"] as! String)){
-            ancherX = ancherXval
+        if let ancherXval = (dic["anchorX"]){
+            ancherX = Double((ancherXval as! [String:AnyObject])["value"] as! String)!
         }
-        if let ancherYval = Double(((dic["anchorY"] as! [String:AnyObject])["value"] as! String)){
-             ancherY = ancherYval
+        if let ancherYval = (dic["anchorY"]){
+             ancherY = Double((ancherYval as! [String:AnyObject])["value"] as! String)!
         }
         center = ((dic["center"] as! [String:AnyObject])["value"] as! Bool)
             
-        if let posXVal = Int(((dic["posX"] as! [String:AnyObject])["value"] as! String)){
-            posX = posXVal
+        if let posXVal = (dic["posX"]){
+            posX = Int((posXVal as! [String:AnyObject])["value"] as! String)!
         }
-        if let posYVal = Int(((dic["posY"] as! [String:AnyObject])["value"] as! String)){
-            posY = posYVal
+        if let posYVal = (dic["posY"]){
+            posY = Int((posYVal as! [String:AnyObject])["value"] as! String)!
         }
-        if let scaleVal = Int(((dic["scale"] as! [String:AnyObject])["value"] as! String)){
-            scale = scaleVal
+        if let scaleVal = (dic["scale"]){
+            scale = Int((scaleVal as! [String:AnyObject])["value"] as! String)!
         }
-        if let opacityVal = Int(((dic["opacity"] as! [String:AnyObject])["value"] as! String)){
-            opacity = opacityVal
+        if let opacityVal = (dic["opacity"]){
+            opacity = Int((opacityVal as! [String:AnyObject])["value"] as! String)!
         }
-        if let rotateVal = Int(((dic["rotate"] as! [String:AnyObject])["value"] as! String)){
-            rotate=rotateVal
+        if let rotateVal = (dic["rotate"]){
+            rotate=Int((rotateVal as! [String:AnyObject])["value"] as! String)!
         }
-        if let blurValue = Int(((dic["blur"] as! [String:AnyObject])["value"] as! String)){
-            blur = blurValue
+        if let blurValue = (dic["blur"]){
+            blur = Int((blurValue as! [String:AnyObject])["value"] as! String)!
         }
-        if let timeVal = Int(((dic["time"] as! [String:AnyObject])["value"] as! String)){
-            time = timeVal
+        if let timeVal = (dic["time"]){
+            time = Int((timeVal as! [String:AnyObject])["value"] as! String)!
         }
-        wait = ((dic["wait"] as! [String:AnyObject])["value"] as! Bool)
-        imageURL = ((dic["image"] as! [String:AnyObject])["value"] as! String)
-            
+        if let waitVal = (dic["wait"]){
+            wait = ((waitVal as! [String:AnyObject])["value"] as! Bool)
+        }
+        if let imageURLVal = (dic["image"]){
+            imageURL = ((imageURLVal as! [String:AnyObject])["value"] as! String)
+        }
         
         DispatchQueue.global(qos: .default).async {
             let image = URL.init(fileURLWithPath: imageURL).lastPathComponent.removingPercentEncoding
@@ -82,15 +85,20 @@ class CharacterController: NSObject {
                     vc.bgView.addSubview(imgView)
                     vc.displayedImages[key] = imgView
                     if(ancherX != 0){
-                        imgView.layer.anchorPoint = CGPoint.init(x: 0.460, y: ancherY)
+                        imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
                     }
                     if(ancherY != 0){
-                        imgView.layer.anchorPoint = CGPoint.init(x: 0.460, y: ancherY)
+                        imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
+                    }
+                    var duration:TimeInterval = 0;
+                    if(wait==true){
+                        duration = time.msToSeconds
+                    }
+                    if(duration == 0){
+                        duration = 3;
                     }
                     
-                    
-                    
-                    UIView.animate(withDuration: 3.0, animations: {
+                    UIView.animate(withDuration: duration, animations: {
                         imgView.alpha = 1.0
                         imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
                     }) { (res) in
