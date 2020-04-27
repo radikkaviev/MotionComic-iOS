@@ -23,10 +23,34 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate {
         super.viewDidLoad()
     }
     
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        FileHelper.shared.StopPlayer();
+               FileHelper.shared.StopOggPlayer();
+    }
+    
     @IBAction func btnOpenFile(sender:UIButton){
         self.openCloud()
     }
     
+    @IBAction func btnSelected(_ sender: Any) {
+        Helper.ShowLoadder(message: "Processing..")
+        DispatchQueue.global(qos: .background).async {
+            FileHelper.shared.GetJSONString();
+            let senarioJSOn = FileHelper.shared.read(fromDocumentsWithFileName: "STK/scenario/main.sc")
+            Helper.senarioDic = Helper.convertToDictionary(text: senarioJSOn)
+            Helper.senarioAllKeys.removeAll()
+            for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
+                Helper.senarioAllKeys.append(key);
+            }
+            Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
+            DispatchQueue.main.async {
+                let pathVC = storyBoard.instantiateViewController(withIdentifier: "PathVC") as! PathVC
+                self.navigationController?.pushViewController(pathVC, animated: true)
+                 Helper.HideLoadder()
+            }
+        }
+    }
 }
 
 //MARK:- UIDocumentPickerDelegate

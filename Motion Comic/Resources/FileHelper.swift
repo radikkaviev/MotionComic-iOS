@@ -304,8 +304,8 @@ public class FileHelper{
                                                  withPathComponent: "STK/resource/\(playFile)") else {
                                                     return
                 }
-                if(self.fileManager.fileExists(atPath: filePath)){
-                    self.oggDecoder = try IDZOggVorbisFileDecoder.init(contentsOf: URL.init(fileURLWithPath: filePath))
+                if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
+                    self.oggDecoder = try IDZOggVorbisFileDecoder.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
                     self.oggPlayer = try IDZAQAudioPlayer.init(decoder: self.oggDecoder)
                     self.oggPlayer!.prepareToPlay()
                     self.oggPlayer!.play();
@@ -327,8 +327,9 @@ public class FileHelper{
                                                  withPathComponent: "STK/resource/\(playFile)") else {
                                                     return
                 }
-                if(self.fileManager.fileExists(atPath: filePath)){
-                    self.avPlayer = try AVAudioPlayer.init(contentsOf: URL.init(fileURLWithPath: filePath))
+                print(filePath.removingPercentEncoding)
+                if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
+                    self.avPlayer = try AVAudioPlayer.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
                     self.avPlayer!.prepareToPlay()
                     self.avPlayer!.play();
                 }
@@ -343,13 +344,19 @@ public class FileHelper{
     }
     
     public func StopPlayer(){
-        if((self.avPlayer) != nil){
-            self.avPlayer?.stop()
+        DispatchQueue.global(qos: .background).async {
+            if((self.avPlayer) != nil){
+                self.avPlayer?.stop()
+                self.avPlayer=nil
+            }
         }
     }
     public func StopOggPlayer(){
-        if((self.oggPlayer) != nil){
-            self.oggPlayer?.stop()
+        DispatchQueue.global(qos: .background).async {
+            if((self.oggPlayer) != nil){
+                self.oggPlayer?.stop()
+                self.avPlayer=nil
+            }
         }
     }
 }

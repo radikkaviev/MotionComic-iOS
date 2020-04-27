@@ -14,6 +14,11 @@
 		016EC9A224442BBB0061EC1A /* HomeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016EC9A124442BBB0061EC1A /* HomeVC.swift */; };
 		016EC9A424449A1E0061EC1A /* PathVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016EC9A324449A1E0061EC1A /* PathVC.swift */; };
 		016EC9A624449A970061EC1A /* Constant.swift in Sources */ = {isa = PBXBuildFile; fileRef = 016EC9A524449A970061EC1A /* Constant.swift */; };
+		184321BF2456CEAE00160E24 /* DefaultController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321BE2456CEAE00160E24 /* DefaultController.swift */; };
+		184321C12456CECC00160E24 /* FadeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321C02456CECC00160E24 /* FadeController.swift */; };
+		184321C32456CEE700160E24 /* CharacterController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321C22456CEE700160E24 /* CharacterController.swift */; };
+		184321C52456CF0C00160E24 /* WaitController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321C42456CF0C00160E24 /* WaitController.swift */; };
+		184321C72456CF4600160E24 /* PlaySeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321C62456CF4600160E24 /* PlaySeController.swift */; };
 		1874BF09244B4869006D8897 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1874BF08244B4869006D8897 /* AVFoundation.framework */; };
 		187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FD2451A7D7006B7411 /* FileHelper.swift */; };
 		18761A0024521211006B7411 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FF24521211006B7411 /* Helper.swift */; };
@@ -40,6 +45,11 @@
 		016EC9A124442BBB0061EC1A /* HomeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeVC.swift; sourceTree = "<group>"; };
 		016EC9A324449A1E0061EC1A /* PathVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PathVC.swift; sourceTree = "<group>"; };
 		016EC9A524449A970061EC1A /* Constant.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constant.swift; sourceTree = "<group>"; };
+		184321BE2456CEAE00160E24 /* DefaultController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultController.swift; sourceTree = "<group>"; };
+		184321C02456CECC00160E24 /* FadeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FadeController.swift; sourceTree = "<group>"; };
+		184321C22456CEE700160E24 /* CharacterController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterController.swift; sourceTree = "<group>"; };
+		184321C42456CF0C00160E24 /* WaitController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WaitController.swift; sourceTree = "<group>"; };
+		184321C62456CF4600160E24 /* PlaySeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlaySeController.swift; sourceTree = "<group>"; };
 		1874BF08244B4869006D8897 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1874BF0A244B48A6006D8897 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		187619FD2451A7D7006B7411 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
@@ -105,6 +115,7 @@
 		01385B592444264500214B94 /* Motion Comic */ = {
 			isa = PBXGroup;
 			children = (
+				184321BD2456CE0700160E24 /* AnimationModule */,
 				18EAD35424542A4E00BE8CA8 /* IDZAudioPlayer */,
 				1874BF13244B63D8006D8897 /* Resources */,
 				016EC9A524449A970061EC1A /* Constant.swift */,
@@ -119,6 +130,18 @@
 				189F1AF2245360E700F39854 /* Motion Comic-Bridging-Header.h */,
 			);
 			path = "Motion Comic";
+			sourceTree = "<group>";
+		};
+		184321BD2456CE0700160E24 /* AnimationModule */ = {
+			isa = PBXGroup;
+			children = (
+				184321BE2456CEAE00160E24 /* DefaultController.swift */,
+				184321C02456CECC00160E24 /* FadeController.swift */,
+				184321C22456CEE700160E24 /* CharacterController.swift */,
+				184321C42456CF0C00160E24 /* WaitController.swift */,
+				184321C62456CF4600160E24 /* PlaySeController.swift */,
+			);
+			path = AnimationModule;
 			sourceTree = "<group>";
 		};
 		1874BF07244B4869006D8897 /* Frameworks */ = {
@@ -288,10 +311,15 @@
 			files = (
 				01385B5B2444264500214B94 /* AppDelegate.swift in Sources */,
 				016EC9A424449A1E0061EC1A /* PathVC.swift in Sources */,
+				184321BF2456CEAE00160E24 /* DefaultController.swift in Sources */,
 				187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */,
 				016EC9A224442BBB0061EC1A /* HomeVC.swift in Sources */,
 				189F1AF6245364D700F39854 /* ARFileManager.swift in Sources */,
+				184321C72456CF4600160E24 /* PlaySeController.swift in Sources */,
+				184321C52456CF0C00160E24 /* WaitController.swift in Sources */,
 				189F1AF4245360E700F39854 /* Motion Comic-Bridging-Header.m in Sources */,
+				184321C32456CEE700160E24 /* CharacterController.swift in Sources */,
+				184321C12456CECC00160E24 /* FadeController.swift in Sources */,
 				016EC9A624449A970061EC1A /* Constant.swift in Sources */,
 				18761A0024521211006B7411 /* Helper.swift in Sources */,
 				18EAD35C24542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm in Sources */,
