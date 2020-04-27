@@ -13,10 +13,9 @@ class DefaultController: NSObject {
     private var _vc:PathVC!
     public func SetAnimation(dic:[String:AnyObject],vc:PathVC){
         self._vc = vc;
-        let color = "#\((dic["color"] as! [String:AnyObject])["value"] as! String)"
+        let color = "\((dic["color"] as! [String:AnyObject])["value"] as! String)".replacingOccurrences(of: "0x", with: "#")
         DispatchQueue.main.async {
-            vc.view.backgroundColor = UIColor.init(hexString: color)
-            vc.view.alpha=0;
+            vc.bgView.backgroundColor = UIColor.init(hexString: color)
             vc.index = vc.index + 1
             vc.LoadAnimation()
         }

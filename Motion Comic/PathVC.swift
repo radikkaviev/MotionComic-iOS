@@ -31,7 +31,7 @@ class PathVC: UIViewController {
     
     @objc func LoadAnimation(){
         
-        if index < 8 {
+        if index < 17 {
             if(Helper.senarioAllKeys.count==0){
                 Helper.ShowAlert(title: "", message: "No Source Found.", btntitle: "OK", vc: self)
                 return
@@ -54,8 +54,16 @@ class PathVC: UIViewController {
             else if ((dic!["tagName"] as! String) == "playse"){
                 PlaySeController.shared.SetAnimation(dic: dic!, vc: self)
             }
+            else if ((dic!["tagName"] as! String) == "stopse"){
+                  StopSeController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if ((dic!["tagName"] as! String) == "playvoice"){
+                  PlayVoiceController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if ((dic!["tagName"] as! String) == "chara_move"){
+                CharacterMoveController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+            }
             print((dic!["tagName"] as! String))
-            
         }
     }
     

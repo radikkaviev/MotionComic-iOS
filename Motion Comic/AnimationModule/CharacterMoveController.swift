@@ -1,15 +1,15 @@
 //
-//  CharacterController.swift
+//  CharacterMoveController.swift
 //  Motion Comic
 //
-//  Created by Apple on 27/04/20.
+//  Created by Apple on 28/04/20.
 //  Copyright © 2020 Jigar. All rights reserved.
 //
 
 import UIKit
 
-class CharacterController: NSObject {
-    static let shared = CharacterController()
+class CharacterMoveController: NSObject {
+    static let shared = CharacterMoveController()
     private var _vc:PathVC!
     public func SetAnimation(dic:[String:AnyObject],vc:PathVC,key:String){
         self._vc = vc;
@@ -31,12 +31,12 @@ class CharacterController: NSObject {
             ancherX = Double((ancherXval as! [String:AnyObject])["value"] as! String)!
         }
         if let ancherYval = (dic["anchorY"]){
-             ancherY = Double((ancherYval as! [String:AnyObject])["value"] as! String)!
+            ancherY = Double((ancherYval as! [String:AnyObject])["value"] as! String)!
         }
         if let centerVal = (dic["center"]){
             center = ((centerVal as! [String:AnyObject])["value"] as! Bool)
         }
-            
+        
         if let posXVal = (dic["posX"]){
             posX = Int((posXVal as! [String:AnyObject])["value"] as! String)!
         }
@@ -65,6 +65,7 @@ class CharacterController: NSObject {
             imageURL = ((imageURLVal as! [String:AnyObject])["value"] as! String)
         }
         
+        
         DispatchQueue.global(qos: .default).async {
             let image = URL.init(fileURLWithPath: imageURL).lastPathComponent.removingPercentEncoding
             imgData = FileHelper.shared.GetCharacterImageFormZipFolder(fileName:image!) as Data
@@ -72,7 +73,7 @@ class CharacterController: NSObject {
             DispatchQueue.main.async {
                 if(imgData != nil){
                     let imgView = UIImageView.init()
-                    imgView.contentMode = UIImageView.ContentMode.scaleAspectFill
+                    imgView.contentMode = UIImageView.ContentMode.scaleAspectFit
                     imgView.alpha = 0;
                     imgView.image = UIImage.init(data: imgData as Data)
                     if(scale > 0){
@@ -93,22 +94,27 @@ class CharacterController: NSObject {
                         imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
                     }
                     var duration:TimeInterval = 0;
-                    duration = time.msToSeconds
-                    if(time == 0){
+                    if(wait==true){
+                        duration = time.msToSeconds
+                    }
+                    if(duration == 0){
                         duration = 3;
                     }
+                    
                     UIView.animate(withDuration: duration, animations: {
                         imgView.alpha = CGFloat(opacity/100)
-                        imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
-                        
+                        vc.view.alpha = CGFloat(opacity/100)
+                        if(ancherX != 0 && ancherX != 0){
+                            imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
+                        }
                     }) { (res) in
-                        vc.index = vc.index + 1
-                        vc.LoadAnimation();
+                        
                         for (key , _) in (dic["children"] as! [String:AnyObject]) {
                             let tempDic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
                             let timeDic =  (tempDic!["laterTime"] as! [String:AnyObject])
                             if(tempDic != nil){
                                 if((tempDic!["tagName"] as! String) == "playse"){
+                                    
                                     let filename = URL.init(fileURLWithPath: ((tempDic!["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
                                     if((Int(timeDic["value"] as! String))==0){
                                         FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(filename)")
@@ -131,20 +137,14 @@ class CharacterController: NSObject {
                                 }
                             }
                         }
-//                        vc.index = vc.index + 1
-//                        vc.LoadAnimation();
+                        if let parent = (dic["parent"]){
+                            let tempDic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[parent as! String]) as! [String:AnyObject]?
+                        }
+                        vc.index = vc.index + 1
+                        vc.LoadAnimation();
                     }
                 }
             }
         }
-    }
-    
-    @objc func PlayOtherfile(timer: Timer){
-        FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(timer.userInfo as! String)")
-        
-    }
-    
-    @objc func PlayOggfile(timer: Timer){
-        FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(timer.userInfo as! String)")
     }
 }

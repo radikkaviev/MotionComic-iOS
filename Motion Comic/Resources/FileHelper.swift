@@ -12,9 +12,11 @@ import Zip
 
 public class FileHelper{
     static let shared = FileHelper()
-    private var avPlayer:AVAudioPlayer? = nil
-    private var oggPlayer:IDZAQAudioPlayer? = nil
+    public var avPlayer:AVAudioPlayer? = nil
+    public var oggPlayer:IDZAQAudioPlayer? = nil
     private var oggDecoder:IDZOggVorbisFileDecoder? = nil
+    public static var playersOtherInPlayModes:[String:AVAudioPlayer] = [String:AVAudioPlayer]()
+    public static var playersOggInPlayModes:[String:IDZAQAudioPlayer] = [String:IDZAQAudioPlayer]()
     
     private let  fileManager = FileManager.default
     private  func documentDirectory() -> String {
@@ -117,7 +119,7 @@ public class FileHelper{
         do {
             
             let savedString = try String(contentsOfFile: filePath, encoding: String.Encoding.utf8)
-            print(savedString)
+            //print(savedString)
             return savedString
             
         } catch {
@@ -183,7 +185,7 @@ public class FileHelper{
                 Helper.senarioAllKeys.append(key);
             }
             Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
-            print(Helper.senarioAllKeys)
+            //print(Helper.senarioAllKeys)
             return unzipDirectory.absoluteString;
         }
         catch {
@@ -309,6 +311,9 @@ public class FileHelper{
                     self.oggPlayer = try IDZAQAudioPlayer.init(decoder: self.oggDecoder)
                     self.oggPlayer!.prepareToPlay()
                     self.oggPlayer!.play();
+                    let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
+                    FileHelper.playersOggInPlayModes[filename] = self.oggPlayer
+                    print(FileHelper.playersOggInPlayModes);
                 }
             }
             catch {
@@ -332,6 +337,9 @@ public class FileHelper{
                     self.avPlayer = try AVAudioPlayer.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
                     self.avPlayer!.prepareToPlay()
                     self.avPlayer!.play();
+                    let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
+                    FileHelper.playersOtherInPlayModes[filename] = self.avPlayer
+                    print(FileHelper.playersOtherInPlayModes);
                 }
             }
             catch {
@@ -356,6 +364,27 @@ public class FileHelper{
             if((self.oggPlayer) != nil){
                 self.oggPlayer?.stop()
                 self.avPlayer=nil
+            }
+        }
+    }
+    
+    public func StopOtherPlayer(key:String){
+        DispatchQueue.global(qos: .background).async {
+            print(FileHelper.playersOtherInPlayModes)
+            var avPlayer = FileHelper.playersOtherInPlayModes[key]
+            if((avPlayer) != nil){
+                avPlayer?.stop()
+                avPlayer=nil
+            }
+        }
+    }
+    public func StopOggPlayer(key:String){
+        DispatchQueue.global(qos: .background).async {
+            print(FileHelper.playersOggInPlayModes)
+            var oggPlayer = FileHelper.playersOggInPlayModes[key]
+            if((oggPlayer) != nil){
+                oggPlayer?.stop()
+                oggPlayer=nil
             }
         }
     }

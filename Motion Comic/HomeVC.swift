@@ -26,7 +26,9 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         FileHelper.shared.StopPlayer();
-               FileHelper.shared.StopOggPlayer();
+        FileHelper.shared.StopOggPlayer();
+        FileHelper.playersOtherInPlayModes.removeAll()
+        FileHelper.playersOggInPlayModes.removeAll()
     }
     
     @IBAction func btnOpenFile(sender:UIButton){
