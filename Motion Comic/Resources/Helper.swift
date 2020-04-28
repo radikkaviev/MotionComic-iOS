@@ -41,6 +41,30 @@ public class Helper{
         SwiftSpinner.hide()
     }
     
+    static func CalculatePos(posX:Int,posY:Int,view:UIView) -> (Int,Int){
+        let webwidth:Int =  640;
+        let webHeight:Int =  960;
+        let widthPer:Int = (posX*100)/webwidth
+        let heightPer:Int = (posY*100)/webHeight
+        let viewWidth:Int = Int(view.frame.size.width)
+        let viewHeight:Int = Int(view.frame.size.height)
+        let calWidth:Int = ((viewWidth * widthPer)/100)
+        let calHeight:Int = ((viewHeight * heightPer)/100)
+        return (0,0)
+    }
+    
+    static func resizeImage(image: UIImage, scale:CGFloat) -> UIImage {
+
+        let newscale = scale / image.size.width
+        let newwidth = image.size.width + scale
+        let newHeight = image.size.height + scale
+        UIGraphicsBeginImageContext(CGSize.init(width: newwidth, height: newHeight))
+        image.draw(in: CGRect.init(x: 0, y: 0, width: newwidth, height: newwidth))
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        return newImage!
+    }
+    
 }
 
 extension UIColor {
@@ -88,7 +112,31 @@ extension UIView {
 }
 
 extension Int {
-    var msToSeconds: Double {
-        return Double(self) / 1000
+    var msToSeconds: Float {
+        return Float(self) / 1000
+    }
+}
+
+extension UIImage {
+    func rotate(radians: Float) -> UIImage? {
+        var newSize = CGRect(origin: CGPoint.zero, size: self.size).applying(CGAffineTransform(rotationAngle: CGFloat(radians))).size
+        // Trim off the extremely small float value to prevent core graphics from rounding it up
+        newSize.width = floor(newSize.width)
+        newSize.height = floor(newSize.height)
+
+        UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
+        let context = UIGraphicsGetCurrentContext()!
+
+        // Move origin to middle
+        context.translateBy(x: newSize.width/2, y: newSize.height/2)
+        // Rotate around middle
+        context.rotate(by: CGFloat(radians))
+        // Draw the image at its center
+        self.draw(in: CGRect(x: -self.size.width/2, y: -self.size.height/2, width: self.size.width, height: self.size.height))
+
+        let newImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+
+        return newImage
     }
 }

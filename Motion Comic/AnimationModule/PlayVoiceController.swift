@@ -42,6 +42,7 @@ class PlayVoiceController: NSObject {
         }
         DispatchQueue.global(qos: .default).async {
             if let parent = (dic["parent"]){
+                let filename = URL.init(fileURLWithPath:name).lastPathComponent
             }
             DispatchQueue.main.async {
             }

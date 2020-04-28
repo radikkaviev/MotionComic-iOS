@@ -31,12 +31,12 @@ class CharacterController: NSObject {
             ancherX = Double((ancherXval as! [String:AnyObject])["value"] as! String)!
         }
         if let ancherYval = (dic["anchorY"]){
-             ancherY = Double((ancherYval as! [String:AnyObject])["value"] as! String)!
+            ancherY = Double((ancherYval as! [String:AnyObject])["value"] as! String)!
         }
         if let centerVal = (dic["center"]){
             center = ((centerVal as! [String:AnyObject])["value"] as! Bool)
         }
-            
+        
         if let posXVal = (dic["posX"]){
             posX = Int((posXVal as! [String:AnyObject])["value"] as! String)!
         }
@@ -71,43 +71,51 @@ class CharacterController: NSObject {
             
             DispatchQueue.main.async {
                 if(imgData != nil){
+                    let positions = Helper.CalculatePos(posX: posX, posY: posY, view: vc.bgView)
                     let imgView = UIImageView.init()
-                    imgView.contentMode = UIImageView.ContentMode.scaleAspectFill
-                    imgView.alpha = 0;
+                    if(center == false){
+                        imgView.contentMode = UIImageView.ContentMode.scaleAspectFill
+                    }
+                    else{
+                        imgView.contentMode = UIImageView.ContentMode.scaleAspectFill
+                    }
+                    imgView.alpha = 0;//CGFloat(opacity/100);
                     imgView.image = UIImage.init(data: imgData as Data)
                     if(scale > 0){
-                        let width = (Int(vc.bgView.frame.width) * 100)/scale
-                        let height = (Int(vc.bgView.frame.height) * 100)/scale
-                        imgView.frame = CGRect.init(x: 0, y:0 , width: width, height: height)
+                        imgView.frame = CGRect.init(x: positions.0, y:positions.1 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
+//                        let width = CGFloat(vc.bgView.frame.width)*(CGFloat(scale/100))
+//                        let height = CGFloat(vc.bgView.frame.height)*(CGFloat(scale/100))
+//                        imgView.frame = CGRect.init(x: CGFloat(positions.0), y: CGFloat(positions.1), width: width, height: height)
+                        //imgView.image = Helper.resizeImage(image: imgView.image!, scale: CGFloat(scale))
                         
                     }
                     else{
-                        imgView.frame = CGRect.init(x: 0, y:0 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
+                        imgView.frame = CGRect.init(x: positions.0, y:positions.1 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
                     }
                     vc.bgView.addSubview(imgView)
                     vc.displayedImages[key] = imgView
-                    if(ancherX != 0){
-                        imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
-                    }
-                    if(ancherY != 0){
-                        imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
+                    if(center == false){
+                        if(ancherX != 0){
+                            imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
+                        }
+                        if(ancherY != 0){
+                            imgView.layer.anchorPoint = CGPoint.init(x: 0.40, y: ancherY)
+                        }
                     }
                     var duration:TimeInterval = 0;
-                    duration = time.msToSeconds
+                    duration = TimeInterval(time.msToSeconds)
                     if(time == 0){
                         duration = 3;
                     }
                     UIView.animate(withDuration: duration, animations: {
-                        imgView.alpha = CGFloat(opacity/100)
+                        imgView.alpha = 1
                         imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
-                        
                     }) { (res) in
-                        vc.index = vc.index + 1
-                        vc.LoadAnimation();
                         for (key , _) in (dic["children"] as! [String:AnyObject]) {
                             let tempDic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
-                            let timeDic =  (tempDic!["laterTime"] as! [String:AnyObject])
                             if(tempDic != nil){
+                            let timeDic =  (tempDic!["laterTime"] as! [String:AnyObject])
+                            if(timeDic != nil){
                                 if((tempDic!["tagName"] as! String) == "playse"){
                                     let filename = URL.init(fileURLWithPath: ((tempDic!["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
                                     if((Int(timeDic["value"] as! String))==0){
@@ -131,8 +139,9 @@ class CharacterController: NSObject {
                                 }
                             }
                         }
-//                        vc.index = vc.index + 1
-//                        vc.LoadAnimation();
+                        }
+                        vc.index = vc.index + 1
+                        vc.LoadAnimation();
                     }
                 }
             }

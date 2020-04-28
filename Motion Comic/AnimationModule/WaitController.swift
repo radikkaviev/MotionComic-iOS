@@ -11,10 +11,15 @@ import UIKit
 class WaitController: NSObject {
     static let shared = WaitController()
     private var _vc:PathVC!
-    public func SetAnimation(dic:[String:AnyObject],vc:PathVC){
+    public func SetAnimation(dic:[String:AnyObject],vc:PathVC,key:String){
         self._vc = vc;
+        
+        let time = Float(((dic["time"] as! [String:AnyObject])["value"] as! String))!/1000
+        if(key == "250"){
+            print("")
+        }
         vc.index = vc.index + 1
-        let time = Int(((dic["time"] as! [String:AnyObject])["value"] as! String))!/1000
-        vc.CallWaitMethod(time: time)
+        vc.LoadAnimation();
+        //vc.CallWaitMethod(time: time)
     }
 }
