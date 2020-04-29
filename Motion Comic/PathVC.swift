@@ -33,7 +33,7 @@ class PathVC: UIViewController {
     
     @objc func LoadAnimation(){
         
-        if index < 40 {
+        if index < 58 {
             if(Helper.senarioAllKeys.count==0){
                 Helper.ShowAlert(title: "", message: "No Source Found.", btntitle: "OK", vc: self)
                 return
@@ -43,6 +43,48 @@ class PathVC: UIViewController {
             if(key == "252"){
                 print(key)
             }
+            let dic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
+            if((dic!["tagName"] as! String) == "defaultColor"){
+                DefaultController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if((dic!["tagName"] as! String) == "sfade"){
+                FadeController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if ((dic!["tagName"] as! String) == "chara_show"){
+                CharacterController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+            }
+            else if ((dic!["tagName"] as! String) == "wait"){
+                WaitController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+            }
+            else if ((dic!["tagName"] as! String) == "playse"){
+                PlaySeController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if ((dic!["tagName"] as! String) == "stopse"){
+                  StopSeController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if ((dic!["tagName"] as! String) == "playvoice"){
+                  PlayVoiceController.shared.SetAnimation(dic: dic!, vc: self)
+            }
+            else if ((dic!["tagName"] as! String) == "chara_move"){
+                CharacterMoveController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+            }
+            else if ((dic!["tagName"] as! String) == "chara_hide"){
+                CharacterHideController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+            }
+            print((dic!["tagName"] as! String))
+            print(key)
+        }
+    }
+    
+    @objc func LoadAnimationWithChanges(){
+        
+        if index < 58 {
+            if(Helper.senarioAllKeys.count==0){
+                Helper.ShowAlert(title: "", message: "No Source Found.", btntitle: "OK", vc: self)
+                return
+            }
+            
+            let key = Helper.senarioAllKeys[index] as String;
             let dic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
             if((dic!["tagName"] as! String) == "defaultColor"){
                 DefaultController.shared.SetAnimation(dic: dic!, vc: self)

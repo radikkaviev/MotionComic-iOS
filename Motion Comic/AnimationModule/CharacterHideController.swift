@@ -45,8 +45,8 @@ class CharacterHideController: NSObject {
                         vc.index = vc.index + 1
                         vc.LoadAnimation();
                         if(imgView != nil){
-                            imgView?.removeFromSuperview()
-                            vc.displayedImages.removeValue(forKey: parent as! String)
+                            imgView?.alpha = 0;
+                            //vc.displayedImages.removeValue(forKey: parent as! String)
                         }
                     }
                 }

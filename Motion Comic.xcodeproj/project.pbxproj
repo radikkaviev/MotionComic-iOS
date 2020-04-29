@@ -26,6 +26,7 @@
 		1874BF09244B4869006D8897 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1874BF08244B4869006D8897 /* AVFoundation.framework */; };
 		187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FD2451A7D7006B7411 /* FileHelper.swift */; };
 		18761A0024521211006B7411 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FF24521211006B7411 /* Helper.swift */; };
+		188FD7202459901D0040CD7A /* SpriteKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 188FD71F2459901D0040CD7A /* SpriteKit.framework */; };
 		189F1AF4245360E700F39854 /* Motion Comic-Bridging-Header.m in Sources */ = {isa = PBXBuildFile; fileRef = 189F1AF3245360E700F39854 /* Motion Comic-Bridging-Header.m */; };
 		189F1AF6245364D700F39854 /* ARFileManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 189F1AF5245364D700F39854 /* ARFileManager.swift */; };
 		18EAD35C24542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm in Sources */ = {isa = PBXBuildFile; fileRef = 18EAD35724542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm */; };
@@ -62,6 +63,7 @@
 		1874BF0A244B48A6006D8897 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		187619FD2451A7D7006B7411 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
 		187619FF24521211006B7411 /* Helper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Helper.swift; sourceTree = "<group>"; };
+		188FD71F2459901D0040CD7A /* SpriteKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SpriteKit.framework; path = System/Library/Frameworks/SpriteKit.framework; sourceTree = SDKROOT; };
 		189F1AF2245360E700F39854 /* Motion Comic-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Motion Comic-Bridging-Header.h"; sourceTree = "<group>"; };
 		189F1AF3245360E700F39854 /* Motion Comic-Bridging-Header.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "Motion Comic-Bridging-Header.m"; sourceTree = "<group>"; };
 		189F1AF5245364D700F39854 /* ARFileManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ARFileManager.swift; sourceTree = "<group>"; };
@@ -88,6 +90,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				188FD7202459901D0040CD7A /* SpriteKit.framework in Frameworks */,
 				18EAD36124542B5100BE8CA8 /* Vorbis.framework in Frameworks */,
 				18EAD36A2454394300BE8CA8 /* Ogg.framework in Frameworks */,
 				18EAD36924542C6A00BE8CA8 /* Foundation.framework in Frameworks */,
@@ -159,6 +162,7 @@
 		1874BF07244B4869006D8897 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				188FD71F2459901D0040CD7A /* SpriteKit.framework */,
 				18EAD36824542C6A00BE8CA8 /* Foundation.framework */,
 				18EAD36624542C5800BE8CA8 /* UIKit.framework */,
 				18EAD36424542C5100BE8CA8 /* CoreGraphics.framework */,

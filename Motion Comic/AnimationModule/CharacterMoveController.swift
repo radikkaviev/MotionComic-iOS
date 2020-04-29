@@ -24,6 +24,7 @@ class CharacterMoveController: NSObject {
         var rotate:Int = 0
         var blur:Int = 0
         var time:Int = 0
+        var again:Int = 0
         var wait:Bool?
         var imageURL:String = ""
         
@@ -64,6 +65,9 @@ class CharacterMoveController: NSObject {
         if let imageURLVal = (dic["image"]){
             imageURL = ((imageURLVal as! [String:AnyObject])["value"] as! String)
         }
+        if let againVal = (dic["again"]){
+            again = Int((againVal as! [String:AnyObject])["value"] as! String)!
+        }
         
         
         DispatchQueue.global(qos: .default).async {
@@ -88,75 +92,75 @@ class CharacterMoveController: NSObject {
             DispatchQueue.main.async {
                 if(imgView != nil){
                     let positions = Helper.CalculatePos(posX: posX, posY: posY, view: vc.bgView)
-                    if(scale > 0){
-                        let width = CGFloat(vc.bgView.frame.width)*(CGFloat(scale/100))
-                        let height = CGFloat(vc.bgView.frame.height)*(CGFloat(scale/100))
-                        imgView.frame = CGRect.init(x: CGFloat(posX), y: CGFloat(posY), width: width, height: height)
-                        
-                    }
-                    else{
-                        imgView.frame = CGRect.init(x: posX, y: posY , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
-                    }
+                    
                     var duration:TimeInterval = 0;
-                    if(wait==true){
-                        duration = TimeInterval(time.msToSeconds)
-                    }
+                    duration = TimeInterval(time.msToSeconds)
+                    
                     if(duration == 0){
                         duration = 3;
                     }
                     
-                    for (key , _) in (dic["children"] as! [String:AnyObject]) {
-                        let tempDic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
-                        if(tempDic != nil){
-                        let timeDic =  (tempDic!["laterTime"] as! [String:AnyObject])
-                        if(timeDic != nil){
-                            if((tempDic!["tagName"] as! String) == "playse"){
-                                
-                                let filename = URL.init(fileURLWithPath: ((tempDic!["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
-                                if((Int(timeDic["value"] as! String))==0){
-                                    FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(filename)")
-                                }
-                                else{
-                                    let timeinterval = ((Int(timeDic["value"] as! String)!))/1000000
-                                    Timer.scheduledTimer(timeInterval: TimeInterval(timeinterval), target: self, selector: #selector(CharacterMoveController.PlayOtherfile(timer:)), userInfo: filename, repeats: false)
-                                }
-                                
-                            }
-                            else if((tempDic!["tagName"] as! String) == "playvoice"){
-                                let filename = URL.init(fileURLWithPath: ((tempDic!["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
-                                if((Int(timeDic["value"] as! String))==0){
-                                    FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(filename)")
-                                }
-                                else{
-                                    let timeinterval = ((Int(timeDic["value"] as! String)!))/1000000
-                                    Timer.scheduledTimer(timeInterval: TimeInterval(timeinterval), target: self, selector: #selector(CharacterMoveController.PlayOggfile(timer:)), userInfo: filename, repeats: false)
-                                }
-                            }
-                        }
-                    }
-                    }
                     UIView.animate(withDuration: duration, animations: {
+                        let yPos = (positions.1-(Int(vc.bgView.frame.size.height)/2))
+                        //Helper.random(min: <#T##CGFloat#>, max: <#T##CGFloat#>)
+                        //let yPos = Helper.random(min: imgView.frame.size.height/2, max: vc.bgView.frame.size.height - imgView.frame.size.height/2)
+                        
+                        if(yPos>0){
+                        imgView.frame = CGRect.init(x: (positions.0-(Int(vc.bgView.frame.size.width)/2)), y:Int(yPos) , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
                         imgView.alpha = CGFloat(opacity/100)
-                        vc.view.alpha = CGFloat(opacity/100)
-                       
-//                        if(ancherX != 0 && ancherX != 0){
-//                                                   imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
-//                                               }
-                        //imgView.image? = (imgView.image?.rotate(radians: Float(rotate)))!
+                        //imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
+                        if(again>0){
+                            imgView.alpha = 1;
+                        }
+                        }else{
+                            imgView.alpha = 0
+                        }
+                        
                     }) { (res) in
                         vc.index = vc.index + 1
                         vc.LoadAnimation();
                     }
+                    for (key , _) in (dic["children"] as! [String:AnyObject]) {
+                        let tempDic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
+                        if(tempDic != nil){
+                            let timeDic =  (tempDic!["laterTime"] as! [String:AnyObject])
+                            if(timeDic != nil){
+                                if((tempDic!["tagName"] as! String) == "playse"){
+                                    
+                                    let filename = URL.init(fileURLWithPath: ((tempDic!["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
+                                    if((Int(timeDic["value"] as! String))==0){
+                                        FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(filename)")
+                                    }
+                                    else{
+                                        let timeinterval = ((Int(timeDic["value"] as! String)!))/1000000
+                                        Timer.scheduledTimer(timeInterval: TimeInterval(timeinterval), target: self, selector: #selector(CharacterMoveController.PlayOtherfile(timer:)), userInfo: filename, repeats: false)
+                                    }
+                                    
+                                }
+                                else if((tempDic!["tagName"] as! String) == "playvoice"){
+                                    let filename = URL.init(fileURLWithPath: ((tempDic!["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
+                                    if((Int(timeDic["value"] as! String))==0){
+                                        FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(filename)")
+                                    }
+                                    else{
+                                        let timeinterval = ((Int(timeDic["value"] as! String)!))/1000000
+                                        Timer.scheduledTimer(timeInterval: TimeInterval(timeinterval), target: self, selector: #selector(CharacterMoveController.PlayOggfile(timer:)), userInfo: filename, repeats: false)
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    
                 }
             }
         }
     }
     @objc func PlayOtherfile(timer: Timer){
-           FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(timer.userInfo as! String)")
-           
-       }
-       
-       @objc func PlayOggfile(timer: Timer){
-           FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(timer.userInfo as! String)")
-       }
+        FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(timer.userInfo as! String)")
+        
+    }
+    
+    @objc func PlayOggfile(timer: Timer){
+        FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(timer.userInfo as! String)")
+    }
 }

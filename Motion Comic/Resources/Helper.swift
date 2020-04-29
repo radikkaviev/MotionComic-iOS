@@ -12,13 +12,16 @@ import SwiftSpinner
 public class Helper{
     public static var senarioJSON:String = "";
     public static var senarioDic:[String: Any]!;
+    public static var senarioDicLinks:[AnyObject]!;
     public static var senarioDicDataArr:[AnyObject]!;
     public static var senarioAllKeys:[String] = [String]();
+    public static var senarioFilterData:[String:[String:AnyObject]] = [String:[String:AnyObject]]();
+    public static var tagArr:[String] = [String]();
     public static func ShowAlert(title:String,message:String,btntitle:String,vc:UIViewController)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
         alert.addAction(UIAlertAction(title: btntitle, style: .default, handler: nil))
-           vc.present(alert, animated: true, completion: nil)
+        vc.present(alert, animated: true, completion: nil)
     }
     
     static func convertToDictionary(text: String) -> [String: Any]? {
@@ -54,7 +57,7 @@ public class Helper{
     }
     
     static func resizeImage(image: UIImage, scale:CGFloat) -> UIImage {
-
+        
         let newscale = scale / image.size.width
         let newwidth = image.size.width + scale
         let newHeight = image.size.height + scale
@@ -65,6 +68,35 @@ public class Helper{
         return newImage!
     }
     
+    
+    public static func random() -> CGFloat {
+        return CGFloat(Float(arc4random()) / 0xFFFFFFFF)
+    }
+    
+    public static func random(min: CGFloat, max: CGFloat) -> CGFloat {
+        return random() * (max - min) + min
+    }
+    
+}
+
+enum TabName: String {
+    case CharaMove = "chara_move"
+    case CharaHide = "chara_hide"
+    case Stopse = "stopse"
+    case Sfade = "sfade"
+    case Charashow = "chara_show"
+    case Playvoice = "playvoice"
+    case Wait = "wait"
+    case SpineMove = "spine_move"
+    case Select = "select"
+    case Playbgm = "playbgm"
+    case End = "end"
+    case Stopbgm = "stopbgm"
+    case Playse = "playse"
+    case SpineHide = "spine_hide"
+    case Spine = "spine"
+    case DefaultColor = "defaultColor"
+    case Quake = "quake"
 }
 
 extension UIColor {
@@ -98,16 +130,16 @@ extension UIColor {
 
 extension UIView {
     func fadeIn(value:Double,delay:Double=0.0,duration:Double=1.0) {
-         // Move our fade out code from earlier
+        // Move our fade out code from earlier
         UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseIn, animations: {
             self.alpha = CGFloat(value) // Instead of a specific instance of, say, birdTypeLabel, we simply set [thisInstance] (ie, self)'s alpha
-             }, completion: nil)
+        }, completion: nil)
     }
-
+    
     func fadeOut(value:Double,delay:Double=0.0,duration:Double=1.0) {
         UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.alpha = CGFloat(value)
-            }, completion: nil)
+        }, completion: nil)
     }
 }
 
@@ -123,20 +155,20 @@ extension UIImage {
         // Trim off the extremely small float value to prevent core graphics from rounding it up
         newSize.width = floor(newSize.width)
         newSize.height = floor(newSize.height)
-
+        
         UIGraphicsBeginImageContextWithOptions(newSize, false, self.scale)
         let context = UIGraphicsGetCurrentContext()!
-
+        
         // Move origin to middle
         context.translateBy(x: newSize.width/2, y: newSize.height/2)
         // Rotate around middle
         context.rotate(by: CGFloat(radians))
         // Draw the image at its center
         self.draw(in: CGRect(x: -self.size.width/2, y: -self.size.height/2, width: self.size.width, height: self.size.height))
-
+        
         let newImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-
+        
         return newImage
     }
 }

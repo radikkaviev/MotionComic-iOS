@@ -185,6 +185,7 @@ public class FileHelper{
                 Helper.senarioAllKeys.append(key);
             }
             Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
+            
             //print(Helper.senarioAllKeys)
             return unzipDirectory.absoluteString;
         }
@@ -193,6 +194,7 @@ public class FileHelper{
         }
         return "";
     }
+    
     
     public  func GetCharacterImageFormZipFolder(fileName:String)->NSData{
         do {
@@ -326,7 +328,7 @@ public class FileHelper{
     }
     
     public  func PlayOtherFile(playFile:String){
-        DispatchQueue.global(qos: .default).async {
+        DispatchQueue.global(qos: .background).async {
             do {
                 guard let filePath = self.append(toPath: self.documentDirectory(),
                                                  withPathComponent: "STK/resource/\(playFile)") else {
@@ -388,4 +390,5 @@ public class FileHelper{
             }
         }
     }
+    
 }

@@ -65,6 +65,7 @@ class CharacterController: NSObject {
             imageURL = ((imageURLVal as! [String:AnyObject])["value"] as! String)
         }
         
+        
         DispatchQueue.global(qos: .default).async {
             let image = URL.init(fileURLWithPath: imageURL).lastPathComponent.removingPercentEncoding
             imgData = FileHelper.shared.GetCharacterImageFormZipFolder(fileName:image!) as Data
@@ -79,15 +80,14 @@ class CharacterController: NSObject {
                     else{
                         imgView.contentMode = UIImageView.ContentMode.scaleAspectFill
                     }
+                    
                     imgView.alpha = 0;//CGFloat(opacity/100);
                     imgView.image = UIImage.init(data: imgData as Data)
                     if(scale > 0){
-                        imgView.frame = CGRect.init(x: positions.0, y:positions.1 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
-//                        let width = CGFloat(vc.bgView.frame.width)*(CGFloat(scale/100))
-//                        let height = CGFloat(vc.bgView.frame.height)*(CGFloat(scale/100))
-//                        imgView.frame = CGRect.init(x: CGFloat(positions.0), y: CGFloat(positions.1), width: width, height: height)
-                        //imgView.image = Helper.resizeImage(image: imgView.image!, scale: CGFloat(scale))
-                        
+//                        imgView.frame = CGRect.init(x: (positions.0-(Int(vc.bgView.frame.size.width)/2)), y:(positions.1-(Int(vc.bgView.frame.size.height)/2)) , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
+                        let width = CGFloat(vc.bgView.frame.width)*(CGFloat(scale/100))
+                        let height = CGFloat(vc.bgView.frame.height)*(CGFloat(scale/100))
+                        imgView.frame = CGRect.init(x: CGFloat(positions.0), y: CGFloat(positions.1), width: width, height: height)
                     }
                     else{
                         imgView.frame = CGRect.init(x: positions.0, y:positions.1 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
