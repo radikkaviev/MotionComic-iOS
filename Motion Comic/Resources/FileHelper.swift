@@ -180,12 +180,42 @@ public class FileHelper{
             DeleteZipFile(withFileName: "STK.zip")
             let senarioJSOn = read(fromDocumentsWithFileName: "STK/scenario/main.sc")
             Helper.senarioDic = Helper.convertToDictionary(text: senarioJSOn)
+            Helper.senarioDicLinks = (Helper.senarioDic!["links"] as! [AnyObject])
             Helper.senarioAllKeys.removeAll()
+            Helper.senarioFilterData.removeAll()
+            Helper.childArr.removeAll()
             for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
-                Helper.senarioAllKeys.append(key);
+                if let isparent = value["parent"]{
+                    if (isparent as? String) == nil{
+                        if let objexist = Helper.senarioFilterData[key]{
+                            print("exist")
+                        }
+                        else{
+                            
+                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
+                                
+                                let (_, value1) = arg0
+                                if let parent = value1["parent"] as? String{
+                                    return (value1["parent"] as! String) == key
+                                }
+                                return false
+                                }
+                            )
+                            if(key == "280"){
+                                print(key)
+                            }
+                            if(!Helper.childArr.contains(key)){
+                                for k in dicarr.keys {
+                                    Helper.childArr.append(k)
+                                }
+                                Helper.senarioFilterData[key] = dicarr
+                                Helper.senarioAllKeys.append(key);
+                            }
+                            
+                        }
+                    }
+                }
             }
-            Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
-            
             //print(Helper.senarioAllKeys)
             return unzipDirectory.absoluteString;
         }
@@ -311,11 +341,11 @@ public class FileHelper{
                 if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
                     self.oggDecoder = try IDZOggVorbisFileDecoder.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
                     self.oggPlayer = try IDZAQAudioPlayer.init(decoder: self.oggDecoder)
-                    self.oggPlayer!.prepareToPlay()
-                    self.oggPlayer!.play();
                     let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
                     FileHelper.playersOggInPlayModes[filename] = self.oggPlayer
-                    print(FileHelper.playersOggInPlayModes);
+                    self.oggPlayer!.prepareToPlay()
+                    self.oggPlayer!.play();
+                    
                 }
             }
             catch {
@@ -327,31 +357,29 @@ public class FileHelper{
         }
     }
     
-    public  func PlayOtherFile(playFile:String){
-        DispatchQueue.global(qos: .background).async {
-            do {
-                guard let filePath = self.append(toPath: self.documentDirectory(),
-                                                 withPathComponent: "STK/resource/\(playFile)") else {
-                                                    return
+    public  func PlayOtherFile(playFile:String,volume:Float=100){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { () -> Void in
+            UIView.animate(withDuration: 0, animations: { () -> Void in
+                do {
+                    guard let filePath = self.append(toPath: self.documentDirectory(),
+                                                     withPathComponent: "STK/resource/\(playFile)") else {
+                                                        return
+                    }
+                    if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
+                        self.avPlayer = try AVAudioPlayer.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
+                        let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
+                        FileHelper.playersOtherInPlayModes[filename] = self.avPlayer
+                        self.avPlayer!.prepareToPlay()
+                        self.avPlayer!.play();
+                    }
                 }
-                print(filePath.removingPercentEncoding)
-                if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
-                    self.avPlayer = try AVAudioPlayer.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
-                    self.avPlayer!.prepareToPlay()
-                    self.avPlayer!.play();
-                    let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
-                    FileHelper.playersOtherInPlayModes[filename] = self.avPlayer
-                    print(FileHelper.playersOtherInPlayModes);
+                catch {
+                    print("Something went wrong")
                 }
-            }
-            catch {
-                print("Something went wrong")
-            }
-            DispatchQueue.main.async {
-                
-            }
-        }
+            })
+        })
     }
+    
     
     public func StopPlayer(){
         DispatchQueue.global(qos: .background).async {
@@ -371,24 +399,45 @@ public class FileHelper{
     }
     
     public func StopOtherPlayer(key:String){
-        DispatchQueue.global(qos: .background).async {
-            print(FileHelper.playersOtherInPlayModes)
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { () -> Void in
             var avPlayer = FileHelper.playersOtherInPlayModes[key]
             if((avPlayer) != nil){
                 avPlayer?.stop()
                 avPlayer=nil
             }
-        }
+        })
     }
     public func StopOggPlayer(key:String){
-        DispatchQueue.global(qos: .background).async {
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { () -> Void in
+            
             print(FileHelper.playersOggInPlayModes)
             var oggPlayer = FileHelper.playersOggInPlayModes[key]
             if((oggPlayer) != nil){
                 oggPlayer?.stop()
                 oggPlayer=nil
             }
-        }
+            
+        })
+    }
+    
+    
+    public func PlayOggFileAfterInterval(fileName:String,delayTime:Double){
+        print("delayTime1- \(delayTime)")
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: { () -> Void in
+            UIView.animate(withDuration: 0, animations: { () -> Void in
+                FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(fileName)")
+            })
+        })
+    }
+    
+    public func PlayOtherFileAfterInterval(fileName:String,delayTime:Double){
+        print("delayTime2- \(delayTime)")
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + delayTime, execute: { () -> Void in
+            UIView.animate(withDuration: 0, animations: { () -> Void in
+                // your animation logic here
+                FileHelper.shared.PlayOtherFile(playFile: "sound/se/\(fileName)")
+            })
+        })
     }
     
 }

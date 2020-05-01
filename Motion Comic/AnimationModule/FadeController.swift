@@ -11,7 +11,7 @@ import UIKit
 class FadeController: NSObject {
     static let shared = FadeController()
     private var _vc:PathVC!
-    public func SetAnimation(dic:[String:AnyObject],vc:PathVC){
+    public func SetAnimation(dic:[String:AnyObject],vc:PathVC,key:String){
         self._vc = vc;
         var start_alpha:Int = 0
         var end_alpha:Int = 0
@@ -39,22 +39,16 @@ class FadeController: NSObject {
         }
         if let waitVal = (dic["wait"]){
             wait = ((waitVal as! [String:AnyObject])["value"] as! Bool)
-            if(!wait){
-                time = 0
-            }
-            else{
-                time = time/1000;
-            }
         }
-        //let alfaStart = Int(((dic["start_alpha"] as! [String:AnyObject])["value"] as! String))
-        //let alfaEnd = Int(((dic["end_alpha"] as! [String:AnyObject])["value"] as! String))//((dic!["end_alpha"] as! [String:AnyObject])["value"]) as! Int)
-        vc.index = vc.index + 1
-        vc.LoadAnimation()
-        DispatchQueue.main.async {
-            UIView.animate(withDuration: TimeInterval(time)) {
-                //vc.bgView.fadeIn(value: Double(CGFloat(end_alpha/100)))
-                //vc.bgView.fadeOut(value: Double(CGFloat(start_alpha/100)))
-            }
-        }
+        
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time.msToSeconds, execute: { () -> Void in
+                   UIView.animate(withDuration: 0, animations: { () -> Void in
+                       vc.bgView.fadeIn(value: Double(CGFloat(end_alpha/100)))
+                       vc.bgView.fadeOut(value: Double(CGFloat(start_alpha/100)))
+                       vc.index = vc.index + 1
+                       vc.LoadAnimation()
+                   })
+        })
+       
     }
 }

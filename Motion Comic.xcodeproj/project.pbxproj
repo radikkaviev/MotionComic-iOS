@@ -23,6 +23,14 @@
 		184321C924570BF900160E24 /* StopSeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321C824570BF900160E24 /* StopSeController.swift */; };
 		184321CB2457592D00160E24 /* PlayVoiceController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321CA2457592D00160E24 /* PlayVoiceController.swift */; };
 		184321CD24575F3F00160E24 /* CharacterMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 184321CC24575F3F00160E24 /* CharacterMoveController.swift */; };
+		185CBBE0245AC023008F4AC3 /* SpineMoveController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBDF245AC023008F4AC3 /* SpineMoveController.swift */; };
+		185CBBE2245AC099008F4AC3 /* SelectViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBE1245AC099008F4AC3 /* SelectViewController.swift */; };
+		185CBBE4245AC117008F4AC3 /* PlayBgmController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBE3245AC117008F4AC3 /* PlayBgmController.swift */; };
+		185CBBE6245AC14E008F4AC3 /* EndController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBE5245AC14E008F4AC3 /* EndController.swift */; };
+		185CBBE8245AC1A1008F4AC3 /* StopBGMController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBE7245AC1A1008F4AC3 /* StopBGMController.swift */; };
+		185CBBEA245AC1E1008F4AC3 /* SpineHideController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBE9245AC1E1008F4AC3 /* SpineHideController.swift */; };
+		185CBBEC245AC218008F4AC3 /* SpineController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBEB245AC218008F4AC3 /* SpineController.swift */; };
+		185CBBEE245AC258008F4AC3 /* QuakeController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 185CBBED245AC258008F4AC3 /* QuakeController.swift */; };
 		1874BF09244B4869006D8897 /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1874BF08244B4869006D8897 /* AVFoundation.framework */; };
 		187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FD2451A7D7006B7411 /* FileHelper.swift */; };
 		18761A0024521211006B7411 /* Helper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 187619FF24521211006B7411 /* Helper.swift */; };
@@ -59,6 +67,14 @@
 		184321C824570BF900160E24 /* StopSeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopSeController.swift; sourceTree = "<group>"; };
 		184321CA2457592D00160E24 /* PlayVoiceController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayVoiceController.swift; sourceTree = "<group>"; };
 		184321CC24575F3F00160E24 /* CharacterMoveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CharacterMoveController.swift; sourceTree = "<group>"; };
+		185CBBDF245AC023008F4AC3 /* SpineMoveController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpineMoveController.swift; sourceTree = "<group>"; };
+		185CBBE1245AC099008F4AC3 /* SelectViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectViewController.swift; sourceTree = "<group>"; };
+		185CBBE3245AC117008F4AC3 /* PlayBgmController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PlayBgmController.swift; sourceTree = "<group>"; };
+		185CBBE5245AC14E008F4AC3 /* EndController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EndController.swift; sourceTree = "<group>"; };
+		185CBBE7245AC1A1008F4AC3 /* StopBGMController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StopBGMController.swift; sourceTree = "<group>"; };
+		185CBBE9245AC1E1008F4AC3 /* SpineHideController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpineHideController.swift; sourceTree = "<group>"; };
+		185CBBEB245AC218008F4AC3 /* SpineController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SpineController.swift; sourceTree = "<group>"; };
+		185CBBED245AC258008F4AC3 /* QuakeController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuakeController.swift; sourceTree = "<group>"; };
 		1874BF08244B4869006D8897 /* AVFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
 		1874BF0A244B48A6006D8897 /* AVKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AVKit.framework; path = System/Library/Frameworks/AVKit.framework; sourceTree = SDKROOT; };
 		187619FD2451A7D7006B7411 /* FileHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FileHelper.swift; sourceTree = "<group>"; };
@@ -155,6 +171,14 @@
 				184321CA2457592D00160E24 /* PlayVoiceController.swift */,
 				184321CC24575F3F00160E24 /* CharacterMoveController.swift */,
 				18418C0C245826FF0031CB5B /* CharacterHideController.swift */,
+				185CBBDF245AC023008F4AC3 /* SpineMoveController.swift */,
+				185CBBE1245AC099008F4AC3 /* SelectViewController.swift */,
+				185CBBE3245AC117008F4AC3 /* PlayBgmController.swift */,
+				185CBBE5245AC14E008F4AC3 /* EndController.swift */,
+				185CBBE7245AC1A1008F4AC3 /* StopBGMController.swift */,
+				185CBBE9245AC1E1008F4AC3 /* SpineHideController.swift */,
+				185CBBEB245AC218008F4AC3 /* SpineController.swift */,
+				185CBBED245AC258008F4AC3 /* QuakeController.swift */,
 			);
 			path = AnimationModule;
 			sourceTree = "<group>";
@@ -327,22 +351,30 @@
 			files = (
 				184321CD24575F3F00160E24 /* CharacterMoveController.swift in Sources */,
 				01385B5B2444264500214B94 /* AppDelegate.swift in Sources */,
+				185CBBE0245AC023008F4AC3 /* SpineMoveController.swift in Sources */,
 				016EC9A424449A1E0061EC1A /* PathVC.swift in Sources */,
+				185CBBEE245AC258008F4AC3 /* QuakeController.swift in Sources */,
 				18418C0D245826FF0031CB5B /* CharacterHideController.swift in Sources */,
 				184321BF2456CEAE00160E24 /* DefaultController.swift in Sources */,
 				184321C924570BF900160E24 /* StopSeController.swift in Sources */,
+				185CBBEC245AC218008F4AC3 /* SpineController.swift in Sources */,
 				187619FE2451A7D7006B7411 /* FileHelper.swift in Sources */,
 				184321CB2457592D00160E24 /* PlayVoiceController.swift in Sources */,
 				016EC9A224442BBB0061EC1A /* HomeVC.swift in Sources */,
+				185CBBE2245AC099008F4AC3 /* SelectViewController.swift in Sources */,
 				189F1AF6245364D700F39854 /* ARFileManager.swift in Sources */,
 				184321C72456CF4600160E24 /* PlaySeController.swift in Sources */,
 				184321C52456CF0C00160E24 /* WaitController.swift in Sources */,
+				185CBBE4245AC117008F4AC3 /* PlayBgmController.swift in Sources */,
 				189F1AF4245360E700F39854 /* Motion Comic-Bridging-Header.m in Sources */,
+				185CBBEA245AC1E1008F4AC3 /* SpineHideController.swift in Sources */,
 				184321C32456CEE700160E24 /* CharacterController.swift in Sources */,
 				184321C12456CECC00160E24 /* FadeController.swift in Sources */,
+				185CBBE8245AC1A1008F4AC3 /* StopBGMController.swift in Sources */,
 				016EC9A624449A970061EC1A /* Constant.swift in Sources */,
 				18761A0024521211006B7411 /* Helper.swift in Sources */,
 				18EAD35C24542ADF00BE8CA8 /* IDZOggVorbisFileDecoder.mm in Sources */,
+				185CBBE6245AC14E008F4AC3 /* EndController.swift in Sources */,
 				18EAD35D24542ADF00BE8CA8 /* IDZAQAudioPlayer.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

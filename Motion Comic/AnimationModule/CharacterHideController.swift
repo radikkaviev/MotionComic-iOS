@@ -32,25 +32,20 @@ class CharacterHideController: NSObject {
             name = ((imageURLVal as! [String:AnyObject])["value"] as! String)
         }
         
-        
-        DispatchQueue.global(qos: .background).async {
-            DispatchQueue.main.async {
-                if let parent = (dic["parent"]){
-                    let imgView =  vc.displayedImages[parent as! String]
-                    imgView?.alpha = 1
-                    UIView.animate(withDuration: TimeInterval(time/1000), animations: {
-                        imgView?.alpha = 0 
-                        
-                    }) { (res) in
-                        vc.index = vc.index + 1
-                        vc.LoadAnimation();
-                        if(imgView != nil){
-                            imgView?.alpha = 0;
-                            //vc.displayedImages.removeValue(forKey: parent as! String)
-                        }
+        if let parent = (dic["parent"]){
+            let imgView =  vc.displayedImages[parent as! String]
+            imgView?.alpha = 1
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time.msToSeconds, execute: { () -> Void in
+                UIView.animate(withDuration: 0, animations: { () -> Void in
+                    if(imgView != nil){
+                        imgView?.alpha = 0;
+                        vc.displayedImages.removeValue(forKey: parent as! String)
                     }
-                }
-            }
+                    vc.index = vc.index + 1
+                    vc.LoadAnimation()
+                })
+               
+            })
         }
     }
 }

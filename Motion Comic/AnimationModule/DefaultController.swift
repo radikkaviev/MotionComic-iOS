@@ -11,7 +11,7 @@ import UIKit
 class DefaultController: NSObject {
     static let shared = DefaultController()
     private var _vc:PathVC!
-    public func SetAnimation(dic:[String:AnyObject],vc:PathVC){
+    public func SetAnimation(dic:[String:AnyObject],vc:PathVC,key:String){
         self._vc = vc;
         let color = "\((dic["color"] as! [String:AnyObject])["value"] as! String)".replacingOccurrences(of: "0x", with: "#")
         DispatchQueue.main.async {

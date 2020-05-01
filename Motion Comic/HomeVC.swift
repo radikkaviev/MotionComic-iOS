@@ -44,43 +44,44 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate {
             Helper.senarioDicLinks = (Helper.senarioDic!["links"] as! [AnyObject])
             Helper.senarioAllKeys.removeAll()
             Helper.senarioFilterData.removeAll()
-            Helper.tagArr.removeAll()
-            print(Helper.senarioDicLinks)
+            Helper.childArr.removeAll()
             for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
-//                if(!Helper.tagArr.contains(value["tagName"] as! String)){
-//                    Helper.tagArr.append(value["tagName"] as! String)
-//                }
-                Helper.senarioAllKeys.append(key);
-//                if let isparent = value["parent"]{
-//                    if(isparent != nil){
-//                        if let objexist = Helper.senarioFilterData[key]{
-//                            print("exist")
-//                        }
-//                        else{
-//
-//                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
-//
-//                                let (_, value1) = arg0
-//                                if let parent = value1["parent"] as? String{
-//
-//                                    return (value1["parent"] as! String) == key
-//
-//                                }
-//                                return false
-//                                }
-//                            )
-//                            Helper.senarioFilterData[key] = dicarr
-//                            Helper.senarioAllKeys.append(key);
-//
-//                        }
-//                    }
-//                }
+                if let isparent = value["parent"]{
+                    if (isparent as? String) == nil{
+                        if let objexist = Helper.senarioFilterData[key]{
+                            print("exist")
+                        }
+                        else{
+                            
+                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
+                                
+                                let (_, value1) = arg0
+                                if let parent = value1["parent"] as? String{
+                                    return (value1["parent"] as! String) == key
+                                }
+                                return false
+                                }
+                            )
+                            if(key == "280"){
+                                print(key)
+                            }
+                            if(!Helper.childArr.contains(key)){
+                                for k in dicarr.keys {
+                                    Helper.childArr.append(k)
+                                }
+                                Helper.senarioFilterData[key] = dicarr
+                                Helper.senarioAllKeys.append(key);
+                            }
+                            
+                        }
+                    }
+                }
                 
             }
-//            print(Helper.senarioFilterData)
+            //print(Helper.childArr)
             Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
-//            print(Helper.senarioAllKeys)
-//            print(Helper.tagArr)
+            //print(Helper.senarioAllKeys)
+//          //print(Helper.tagArr)
             DispatchQueue.main.async {
                 let pathVC = storyBoard.instantiateViewController(withIdentifier: "PathVC") as! PathVC
                 self.navigationController?.pushViewController(pathVC, animated: true)

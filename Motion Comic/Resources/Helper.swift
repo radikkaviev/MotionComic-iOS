@@ -15,8 +15,10 @@ public class Helper{
     public static var senarioDicLinks:[AnyObject]!;
     public static var senarioDicDataArr:[AnyObject]!;
     public static var senarioAllKeys:[String] = [String]();
+    public static var hideParentKeys:[String] = [String]();
     public static var senarioFilterData:[String:[String:AnyObject]] = [String:[String:AnyObject]]();
-    public static var tagArr:[String] = [String]();
+    public static var childArr:[String] = [String]();
+    public static var charActionArr:[TagName] = [TagName.CharaMove,TagName.CharaHide]
     public static func ShowAlert(title:String,message:String,btntitle:String,vc:UIViewController)
     {
         let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
@@ -79,7 +81,7 @@ public class Helper{
     
 }
 
-enum TabName: String {
+public enum TagName: String {
     case CharaMove = "chara_move"
     case CharaHide = "chara_hide"
     case Stopse = "stopse"
@@ -97,6 +99,23 @@ enum TabName: String {
     case Spine = "spine"
     case DefaultColor = "defaultColor"
     case Quake = "quake"
+}
+
+
+public enum AudioFileType: String {
+    case OGG = ".ogg"
+    case MP3 = ".mp3"
+}
+
+extension String {
+
+    func fileName() -> String {
+        return URL(fileURLWithPath: self).deletingPathExtension().lastPathComponent
+    }
+
+    func fileExtension() -> String {
+        return URL(fileURLWithPath: self).pathExtension
+    }
 }
 
 extension UIColor {
@@ -144,8 +163,8 @@ extension UIView {
 }
 
 extension Int {
-    var msToSeconds: Float {
-        return Float(self) / 1000
+    var msToSeconds: Double {
+        return Double(Float(self) / 1000)
     }
 }
 
