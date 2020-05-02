@@ -46,36 +46,37 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate {
             Helper.senarioFilterData.removeAll()
             Helper.childArr.removeAll()
             for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
-                if let isparent = value["parent"]{
-                    if (isparent as? String) == nil{
-                        if let objexist = Helper.senarioFilterData[key]{
-                            print("exist")
-                        }
-                        else{
-                            
-                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
-                                
-                                let (_, value1) = arg0
-                                if let parent = value1["parent"] as? String{
-                                    return (value1["parent"] as! String) == key
-                                }
-                                return false
-                                }
-                            )
-                            if(key == "280"){
-                                print(key)
-                            }
-                            if(!Helper.childArr.contains(key)){
-                                for k in dicarr.keys {
-                                    Helper.childArr.append(k)
-                                }
-                                Helper.senarioFilterData[key] = dicarr
-                                Helper.senarioAllKeys.append(key);
-                            }
-                            
-                        }
-                    }
-                }
+                Helper.senarioAllKeys.append(key);
+//                if let isparent = value["parent"]{
+//                    if (isparent as? String) == nil{
+//                        if let objexist = Helper.senarioFilterData[key]{
+//                            print("exist")
+//                        }
+//                        else{
+//
+//                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
+//
+//                                let (_, value1) = arg0
+//                                if let parent = value1["parent"] as? String{
+//                                    return (value1["parent"] as! String) == key
+//                                }
+//                                return false
+//                                }
+//                            )
+//                            if(key == "280"){
+//                                print(key)
+//                            }
+//                            if(!Helper.childArr.contains(key)){
+//                                for k in dicarr.keys {
+//                                    Helper.childArr.append(k)
+//                                }
+//                                Helper.senarioFilterData[key] = dicarr
+//                                Helper.senarioAllKeys.append(key);
+//                            }
+//
+//                        }
+//                    }
+//                }
                 
             }
             //print(Helper.childArr)

@@ -40,11 +40,18 @@ class FadeController: NSObject {
         if let waitVal = (dic["wait"]){
             wait = ((waitVal as! [String:AnyObject])["value"] as! Bool)
         }
-        
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time.msToSeconds, execute: { () -> Void in
-                   UIView.animate(withDuration: 0, animations: { () -> Void in
+        var duration:Double = 0;
+        var waittime:Int = 0
+        if(!wait){
+            duration = time.msToSeconds;
+        }
+        else{
+            waittime = time;
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + waittime.msToSeconds, execute: { () -> Void in
+                   UIView.animate(withDuration: duration, animations: { () -> Void in
                        vc.bgView.fadeIn(value: Double(CGFloat(end_alpha/100)))
-                       vc.bgView.fadeOut(value: Double(CGFloat(start_alpha/100)))
+                        vc.bgView.fadeOut(value: Double(CGFloat(start_alpha/100)))
                        vc.index = vc.index + 1
                        vc.LoadAnimation()
                    })

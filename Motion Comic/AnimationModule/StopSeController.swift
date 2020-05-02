@@ -30,9 +30,9 @@ class StopSeController: NSObject {
                 vc.index = vc.index + 1
                 vc.LoadAnimation()
             })
-           
         })
-       
+
+      
        
     }
 }

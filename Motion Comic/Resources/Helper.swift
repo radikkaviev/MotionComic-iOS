@@ -18,6 +18,7 @@ public class Helper{
     public static var hideParentKeys:[String] = [String]();
     public static var senarioFilterData:[String:[String:AnyObject]] = [String:[String:AnyObject]]();
     public static var childArr:[String] = [String]();
+    public static var moveChilds:[String] = [String]();
     public static var charActionArr:[TagName] = [TagName.CharaMove,TagName.CharaHide]
     public static func ShowAlert(title:String,message:String,btntitle:String,vc:UIViewController)
     {
@@ -103,8 +104,8 @@ public enum TagName: String {
 
 
 public enum AudioFileType: String {
-    case OGG = ".ogg"
-    case MP3 = ".mp3"
+    case OGG = "ogg"
+    case MP3 = "mp3"
 }
 
 extension String {
@@ -147,6 +148,17 @@ extension UIColor {
     }
 }
 
+extension UIButton {
+    func addLeftPadding(_ padding: CGFloat) {
+        titleEdgeInsets = UIEdgeInsets(top: 0.0, left: padding, bottom: 0.0, right: -padding)
+        contentEdgeInsets = UIEdgeInsets(top: 0.0, left: 0.0, bottom: 0.0, right: padding)
+    }
+    func addRightPadding(_ padding: CGFloat) {
+           titleEdgeInsets = UIEdgeInsets(top: 0.0, left: -padding, bottom: 0.0, right: padding)
+        contentEdgeInsets = UIEdgeInsets(top: 0.0, left: padding, bottom: 0.0, right: 0.0)
+    }
+}
+
 extension UIView {
     func fadeIn(value:Double,delay:Double=0.0,duration:Double=1.0) {
         // Move our fade out code from earlier
@@ -156,7 +168,7 @@ extension UIView {
     }
     
     func fadeOut(value:Double,delay:Double=0.0,duration:Double=1.0) {
-        UIView.animate(withDuration: duration, delay: delay, options: UIView.AnimationOptions.curveEaseOut, animations: {
+        UIView.animate(withDuration: duration, delay: 0, options: UIView.AnimationOptions.curveEaseOut, animations: {
             self.alpha = CGFloat(value)
         }, completion: nil)
     }

@@ -33,19 +33,32 @@ class CharacterHideController: NSObject {
         }
         
         if let parent = (dic["parent"]){
-            let imgView =  vc.displayedImages[parent as! String]
-            imgView?.alpha = 1
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time.msToSeconds, execute: { () -> Void in
-                UIView.animate(withDuration: 0, animations: { () -> Void in
+           var waittime:Int = 0
+           var duration:Double = 0;
+           if(!wait!){
+               duration = time.msToSeconds;
+           }
+           else{
+            if(time==0){
+                waittime = 500
+            }else{
+               waittime = time;
+            }
+           }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + waittime.msToSeconds, execute: { () -> Void in
+                print("previous parent")
+                print(parent as! String)
+                let imgView =  vc.displayedImages[parent as! String]
+                UIView.animate(withDuration: duration, animations: { () -> Void in
                     if(imgView != nil){
                         imgView?.alpha = 0;
-                        vc.displayedImages.removeValue(forKey: parent as! String)
+                        //vc.displayedImages.removeValue(forKey: parent as! String)
                     }
                     vc.index = vc.index + 1
                     vc.LoadAnimation()
                 })
-               
             })
+           
         }
     }
 }

@@ -73,28 +73,43 @@ class CharacterController: NSObject {
             DispatchQueue.main.async {
                 if(imgData != nil){
                     let positions = Helper.CalculatePos(posX: posX, posY: posY, view: vc.bgView)
-                    let imgView = UIImageView.init()
-                    imgView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleBottomMargin.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue | UIView.AutoresizingMask.flexibleRightMargin.rawValue | UIView.AutoresizingMask.flexibleLeftMargin.rawValue | UIView.AutoresizingMask.flexibleTopMargin.rawValue | UIView.AutoresizingMask.flexibleWidth.rawValue)
-                    imgView.contentMode = UIView.ContentMode.scaleAspectFill
-                    
-                    
-                    imgView.alpha = 0;//CGFloat(opacity/100);
-                    imgView.image = UIImage.init(data: imgData as Data)
-                    imgView.frame = CGRect.init(x: positions.0, y:positions.1 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
-                    if(scale > 0){
-                        imgView.layer.contentsScale = CGFloat(scale)
+                    var waittime:Int = 0
+                    var duration:Double = 0;
+                    if(!wait!){
+                        if(time==0){
+                            duration = 0;
+                        }
+                        else{
+                            duration = time.msToSeconds;
+                        }
                     }
-                    //                    if(time==0){
-                    //                        time = 1000
-                    //                    }
-                    
-                    vc.bgView.addSubview(imgView)
-                    vc.displayedImages[key] = imgView
-                    imgView.layer.position = CGPoint.init(x: posX, y: posY)
-                    imgView.layer.frame = vc.view.bounds
-                    
-                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + time.msToSeconds, execute: { () -> Void in
-                        UIView.animate(withDuration: time.msToSeconds, animations: { () -> Void in
+                    else{
+                        if(time==0){
+                            waittime=100
+                        }
+                        else{
+                            waittime = time;
+                        }
+                    }
+                    DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + waittime.msToSeconds, execute: { () -> Void in
+                        let imgView = UIImageView.init()
+                        imgView.autoresizingMask = UIView.AutoresizingMask(rawValue: UIView.AutoresizingMask.flexibleBottomMargin.rawValue | UIView.AutoresizingMask.flexibleHeight.rawValue | UIView.AutoresizingMask.flexibleRightMargin.rawValue | UIView.AutoresizingMask.flexibleLeftMargin.rawValue | UIView.AutoresizingMask.flexibleTopMargin.rawValue | UIView.AutoresizingMask.flexibleWidth.rawValue)
+                        imgView.contentMode = UIView.ContentMode.scaleAspectFill
+                        
+                        if(scale > 0){
+                            //imgView.layer.contentsScale = CGFloat(scale)
+                            imgView.transform = CGAffineTransform(scaleX: CGFloat(scale/100), y: CGFloat(scale/100))
+                        }
+                        imgView.alpha = 0;//CGFloat(opacity/100);
+                        imgView.image = UIImage.init(data: imgData as Data)
+                        imgView.frame = CGRect.init(x: positions.0, y:positions.1 , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
+                        
+                        vc.bgView.addSubview(imgView)
+                        vc.displayedImages[key] = imgView
+                        imgView.layer.position = CGPoint.init(x: posX, y: posY)
+                        imgView.layer.frame = vc.view.bounds
+                        
+                        UIView.animate(withDuration: duration, animations: { () -> Void in
                             imgView.fadeIn(value: 1)
                             imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
                             
@@ -129,30 +144,36 @@ class CharacterController: NSObject {
                             }
                             let dicSub = Helper.senarioDic!["data"]
                             let moreExist = (Helper.senarioDicLinks! as! [AnyObject])[Int(key)!]
-                            if(moreExist.count>0){
-                                if(dicSub != nil){
-                                    for tag in Helper.charActionArr {
-                                        let subDic = (dicSub as! [String:AnyObject]).filter { (arg0) -> Bool in
-                                            let (_, value1) = arg0
-                                            if (value1["parent"] as? String) != nil{
-                                                return ((value1["parent"] as! String) == key && (value1["tagName"] as! String) == tag.rawValue)
+                            if moreExist is [String:AnyObject]{
+                                if(moreExist.count>0){
+                                    if(dicSub != nil){
+                                        for tag in Helper.charActionArr {
+                                            let subDic = (dicSub as! [String:AnyObject]).filter { (arg0) -> Bool in
+                                                let (_, value1) = arg0
+                                                if (value1["parent"] as? String) != nil{
+                                                    return ((value1["parent"] as! String) == key && (value1["tagName"] as! String) == tag.rawValue)
+                                                }
+                                                return false
+                                                
                                             }
-                                            return false
+                                            if (subDic as? [String:AnyObject]) != nil{
+                                                
+                                                if(tag == TagName.CharaMove){
+                                                    for (key2 , value2) in (subDic as! [String:AnyObject]){
+                                                        CharacterMoveController.shared.SetAnimation(dic: (value2 as! [String:AnyObject]), vc: vc, key: key2)
+                                                        print("Calling move")
+                                                    }
+                                                    
+                                                }
+                                                //                                            else if(tag == TagName.CharaHide){
+                                                //                                                for (key2 , value2) in (subDic as! [String:AnyObject]){
+                                                //                                                    CharacterHideController.shared.SetAnimation(dic: (value2 as! [String:AnyObject]), vc: vc, key: key2)
+                                                //                                                }
+                                                //                                            }
+                                            }
                                             
                                         }
-                                        if (subDic as? [String:AnyObject]) != nil{
-                                            
-                                            if(tag == TagName.CharaMove){
-                                                for (key2 , value2) in (subDic as! [String:AnyObject]){
-                                                    CharacterMoveController.shared.SetAnimation(dic: (value2 as! [String:AnyObject]), vc: vc, key: key2)
-                                                }
-                                            }
-                                            else if(tag == TagName.CharaHide){
-                                                for (key2 , value2) in (subDic as! [String:AnyObject]){
-                                                    CharacterHideController.shared.SetAnimation(dic: (value2 as! [String:AnyObject]), vc: vc, key: key2)
-                                                }
-                                            }
-                                        }
+                                        
                                     }
                                 }
                             }
@@ -161,6 +182,7 @@ class CharacterController: NSObject {
                         })
                     })
                 }
+                
             }
         }
     }

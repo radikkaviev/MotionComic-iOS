@@ -71,35 +71,58 @@ class CharacterMoveController: NSObject {
         
         let dispatchQues = DispatchQueue(label: "move");
         dispatchQues.async {
-            var imgView:UIImageView!
-            if let parent = (dic["parent"]){
-                imgView = vc.displayedImages[parent as! String]!
-            }
-            if(imgView == nil){
-                vc.index = vc.index + 1
-                vc.LoadAnimation();
-                return
-            }
-            var WatVal:Double = time.msToSeconds;
+            var duration:Double = 0;
+            var waittime:Int = 0
             if(!wait!){
-                WatVal = 0;
+                if(time==0){
+                    duration = 0;
+                }
+                else{
+                    duration = time.msToSeconds;
+                }
             }
-            
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + WatVal, execute: { () -> Void in
+            else{
+                if(time==0){
+                    time=1000
+                }
+                waittime = time;
+            }
+            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + waittime.msToSeconds, execute: { () -> Void in
+                var imgView:UIImageView!
+                if let parent = (dic["parent"]){
+                    if(vc.displayedImages[parent as! String] != nil){
+                        imgView = vc.displayedImages[parent as! String]!
+                    }
+                    else{
+                        vc.index = vc.index + 1
+                        vc.LoadAnimation();
+                        return
+                    }
+                }
+                if(imgView == nil){
+                    vc.index = vc.index + 1
+                    vc.LoadAnimation();
+                    return
+                }
                 if(imgView != nil){
-                    
-                    UIView.animate(withDuration: time.msToSeconds, animations: { () -> Void in
-                        imgView.layer.contentsScale = CGFloat(scale)
+                    UIView.animate(withDuration: duration, animations: { () -> Void in
+                        if(scale > 0){
+                            //imgView.layer.contentsScale = CGFloat(scale)
+                            imgView.transform = CGAffineTransform(scaleX: CGFloat(scale/100), y: CGFloat(scale/100))
+                        }
+                        if(posX > Int(vc.bgView.frame.size.width)){
+                            posX = Int(vc.bgView.frame.size.width)
+                        }
                         imgView.layer.position = CGPoint.init(x: posX, y: posY)
                         imgView.layer.frame = CGRect.init(x: posX, y:posY , width: Int(vc.bgView.frame.size.width), height: Int(vc.bgView.frame.size.height))
                         
-                        imgView.layer.anchorPoint = CGPoint.init(x: 0.5, y: 0.5)
+                        //imgView.layer.anchorPoint = CGPoint.init(x: ancherX, y: ancherY)
                         imgView.alpha = CGFloat(opacity/100)
                         if(rotate != 0){
                             let radians = CGFloat(Double(rotate) * Double.pi/180)
                             imgView.transform = CGAffineTransform(rotationAngle: radians)
                         }
-                        //imgView.alpha = 1;
+                        
                         for (key , _) in (dic["children"] as! [String:AnyObject]) {
                             let tempDic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
                             if(tempDic != nil){
@@ -126,6 +149,7 @@ class CharacterMoveController: NSObject {
                                     }
                                 }
                             }
+                            
                         }
                         vc.index = vc.index + 1
                         vc.LoadAnimation()

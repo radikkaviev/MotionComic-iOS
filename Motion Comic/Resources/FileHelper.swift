@@ -185,37 +185,39 @@ public class FileHelper{
             Helper.senarioFilterData.removeAll()
             Helper.childArr.removeAll()
             for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
-                if let isparent = value["parent"]{
-                    if (isparent as? String) == nil{
-                        if let objexist = Helper.senarioFilterData[key]{
-                            print("exist")
-                        }
-                        else{
-                            
-                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
-                                
-                                let (_, value1) = arg0
-                                if let parent = value1["parent"] as? String{
-                                    return (value1["parent"] as! String) == key
-                                }
-                                return false
-                                }
-                            )
-                            if(key == "280"){
-                                print(key)
-                            }
-                            if(!Helper.childArr.contains(key)){
-                                for k in dicarr.keys {
-                                    Helper.childArr.append(k)
-                                }
-                                Helper.senarioFilterData[key] = dicarr
-                                Helper.senarioAllKeys.append(key);
-                            }
-                            
-                        }
-                    }
-                }
+                 Helper.senarioAllKeys.append(key);
+//                if let isparent = value["parent"]{
+//                    if (isparent as? String) == nil{
+//                        if let objexist = Helper.senarioFilterData[key]{
+//                            print("exist")
+//                        }
+//                        else{
+//
+//                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
+//
+//                                let (_, value1) = arg0
+//                                if let parent = value1["parent"] as? String{
+//                                    return (value1["parent"] as! String) == key
+//                                }
+//                                return false
+//                                }
+//                            )
+//                            if(key == "280"){
+//                                print(key)
+//                            }
+//                            if(!Helper.childArr.contains(key)){
+//                                for k in dicarr.keys {
+//                                    Helper.childArr.append(k)
+//                                }
+//                                Helper.senarioFilterData[key] = dicarr
+//                                Helper.senarioAllKeys.append(key);
+//                            }
+//
+//                        }
+//                    }
+//                }
             }
+            Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
             //print(Helper.senarioAllKeys)
             return unzipDirectory.absoluteString;
         }
@@ -331,30 +333,54 @@ public class FileHelper{
         return NSData.init()
     }
     
-    public  func PlayOggFile(playFile:String){
-        DispatchQueue.global(qos: .background).async {
-            do {
-                guard let filePath = self.append(toPath: self.documentDirectory(),
-                                                 withPathComponent: "STK/resource/\(playFile)") else {
-                                                    return
-                }
-                if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
-                    self.oggDecoder = try IDZOggVorbisFileDecoder.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
-                    self.oggPlayer = try IDZAQAudioPlayer.init(decoder: self.oggDecoder)
-                    let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
-                    FileHelper.playersOggInPlayModes[filename] = self.oggPlayer
-                    self.oggPlayer!.prepareToPlay()
-                    self.oggPlayer!.play();
-                    
-                }
+    public  func GetEndImageFormZipFolder(fileName:String)->NSData{
+        do {
+            var isDir : ObjCBool = true
+            guard let filePath = self.append(toPath: self.documentDirectory(),
+                                             withPathComponent: "STK/resource/common/select/bar") else {
+                                                return NSData.init()
             }
-            catch {
-                print("Something went wrong")
-            }
-            DispatchQueue.main.async {
-                
+            
+            if fileManager.fileExists(atPath: filePath, isDirectory: &isDir) {
+                if isDir.boolValue {
+                    let url = URL.init(fileURLWithPath: filePath+"/"+fileName.removingPercentEncoding!)
+                    return try NSData.init(contentsOf: url)
+                }
             }
         }
+        catch {
+            print("Something went wrong")
+        }
+        return NSData.init()
+    }
+    
+    public  func PlayOggFile(playFile:String){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { () -> Void in
+            UIView.animate(withDuration: 0, animations: { () -> Void in
+                do {
+                    guard let filePath = self.append(toPath: self.documentDirectory(),
+                                                     withPathComponent: "STK/resource/\(playFile)") else {
+                                                        return
+                    }
+                    if(self.fileManager.fileExists(atPath: filePath.removingPercentEncoding!)){
+                        self.oggDecoder = try IDZOggVorbisFileDecoder.init(contentsOf: URL.init(fileURLWithPath: filePath.removingPercentEncoding!))
+                        self.oggPlayer = try IDZAQAudioPlayer.init(decoder: self.oggDecoder)
+                        let filename = URL.init(fileURLWithPath: playFile).lastPathComponent
+                        FileHelper.playersOggInPlayModes[filename] = self.oggPlayer
+                        self.oggPlayer!.prepareToPlay()
+                        self.oggPlayer!.play();
+                        
+                    }
+                }
+                catch {
+                    print("Something went wrong")
+                }
+                DispatchQueue.main.async {
+                    
+                }
+            })
+        })
+        
     }
     
     public  func PlayOtherFile(playFile:String,volume:Float=100){
@@ -417,6 +443,20 @@ public class FileHelper{
                 oggPlayer=nil
             }
             
+        })
+    }
+    
+    public func StopAllOggPlayer(){
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { () -> Void in
+            
+            print(FileHelper.playersOggInPlayModes)
+            for (_ , value) in FileHelper.playersOggInPlayModes {
+               
+                if((value) != nil){
+                    value.stop()
+                }
+            }
+            //FileHelper.playersOggInPlayModes.removeAll()
         })
     }
     

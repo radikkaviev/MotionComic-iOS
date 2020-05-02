@@ -48,12 +48,13 @@ class PlayVoiceController: NSObject {
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + later.msToSeconds, execute: { () -> Void in
             UIView.animate(withDuration: 0, animations: { () -> Void in
                 let filename = URL.init(fileURLWithPath: ((dic["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
-                //if(parent==0){
+                if(parent==0){
                     FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(filename)")
-                //}
-                vc.index = vc.index + 1
-                vc.LoadAnimation();
+                }
+               vc.index = vc.index + 1
+               vc.LoadAnimation();
             })
         })
+       
     }
 }

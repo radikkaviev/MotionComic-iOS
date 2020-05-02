@@ -45,7 +45,7 @@ class PlaySeController: NSObject {
         }
         DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + later.msToSeconds, execute: { () -> Void in
             UIView.animate(withDuration: 0, animations: { () -> Void in
-                //if(parent==0){
+                if(parent==0){
                     let filename = URL.init(fileURLWithPath: ((dic["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
                     if(filename.fileExtension() == AudioFileType.MP3.rawValue){
                         FileHelper.shared.PlayOtherFile(playFile: "sound/voice/\(filename)")
@@ -53,10 +53,10 @@ class PlaySeController: NSObject {
                     else{
                         FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(filename)")
                     }
-                vc.index = vc.index + 1
-                vc.LoadAnimation();
+                }
+           vc.index = vc.index + 1
+           vc.LoadAnimation();
             })
-           
         })
         
     }
