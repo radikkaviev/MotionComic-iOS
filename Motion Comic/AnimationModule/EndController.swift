@@ -9,6 +9,19 @@
 import UIKit
 
 class EndController: NSObject {
-    static let shared = EndController()
+    private static var sharedInstance: EndController?
+    class var shared : EndController {
+        guard let sharedInstance = self.sharedInstance else {
+            let sharedInstance = EndController()
+            self.sharedInstance = sharedInstance
+            return sharedInstance
+        }
+        return sharedInstance
+    }
     private var _vc:PathVC!
+    class func dispose()
+    {
+        EndController.sharedInstance = nil
+        print("Disposed Singleton instance")
+    }
 }

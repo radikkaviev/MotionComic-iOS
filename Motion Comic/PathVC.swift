@@ -18,6 +18,7 @@ class PathVC: UIViewController {
     var index = 0
     var timer:Timer!
     var time:Int = 0
+    var isback:Bool = false;
     //MARK:-
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -27,66 +28,57 @@ class PathVC: UIViewController {
     }
     
     override func viewDidAppear(_ animated: Bool) {
-        //SelectViewController.shared.SetEndView(vc: self, key: "key")
-        //self.view.addSubview(SelectViewController.shared)
         LoadAnimation();
     }
     
     @objc func LoadAnimation(){
         print("Index-\(index)")
-        if index < Helper.senarioAllKeys.count {
-            if(Helper.senarioAllKeys.count==0){
+        if(isback){
+            DisponseObjects()
+            return;
+        }
+        
+        if index < Helper.animationList.count {
+            if(Helper.animationList.count==0){
                 Helper.ShowAlert(title: "", message: "No Source Found.", btntitle: "OK", vc: self)
                 return
             }
-            var parent:Int = 0
-            var time:Int = 0
-            let key = Helper.senarioAllKeys[index] as String;
-            let dic = ((Helper.senarioDic!["data"] as! [String:AnyObject])[key]) as! [String:AnyObject]?
-            if let parentVal = (dic!["parent"] as? String){
-                parent = Int(parentVal)!
-            }
-            if let timeVal = (dic!["time"]){
-                time = Int((timeVal as! [String:AnyObject])["value"] as! String)!
-            }
-            
-            let tagname =  (dic!["tagName"] as! String)
-            if(tagname == "end"){
-                print(tagname)
-            }
+            let dic = Helper.animationList[index]
+            let tagname =  (dic["tagName"] as! String)
+            print(tagname)
             switch tagname {
             case TagName.DefaultColor.rawValue:
-                DefaultController.shared.SetAnimation(dic: dic!, vc: self,key: key)
+                DefaultController.shared.SetAnimation(dic: dic, vc: self,key: "")
                 break;
             case TagName.Sfade.rawValue:
-                FadeController.shared.SetAnimation(dic: dic!, vc: self,key: key)
+                FadeController.shared.SetAnimation(dic: dic, vc: self,key: "")
                 break;
             case TagName.Charashow.rawValue:
-                CharacterController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+                CharacterController.shared.SetAnimation(dic: dic, vc: self, key: "")
                 break;
             case TagName.Wait.rawValue:
-                WaitController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+                WaitController.shared.SetAnimation(dic: dic, vc: self, key: "")
                 break;
             case TagName.Playse.rawValue:
-                PlaySeController.shared.SetAnimation(dic: dic!, vc: self,key: key)
+                PlaySeController.shared.SetAnimation(dic: dic, vc: self,key: "")
                 break;
             case TagName.Stopse.rawValue:
-                StopSeController.shared.SetAnimation(dic: dic!, vc: self,key: key)
+                StopSeController.shared.SetAnimation(dic: dic, vc: self,key: "")
                 break;
             case TagName.Playvoice.rawValue:
-                PlayVoiceController.shared.SetAnimation(dic: dic!, vc: self,key: key)
+                PlayVoiceController.shared.SetAnimation(dic: dic, vc: self,key: "")
                 break;
-                //            case TagName.CharaMove.rawValue:
-                //                CharacterMoveController.shared.SetAnimation(dic: dic!, vc: self, key: key)
-            //                break;
+            case TagName.CharaMove.rawValue:
+                CharacterMoveController.shared.SetAnimation(dic: dic, vc: self, key: "")
+                break;
             case TagName.CharaHide.rawValue:
-                CharacterHideController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+                CharacterHideController.shared.SetAnimation(dic: dic, vc: self, key: "")
                 break;
             case TagName.Playbgm.rawValue:
-                PlayBgmController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+                PlayBgmController.shared.SetAnimation(dic: dic, vc: self, key: "")
                 break;
             case TagName.Stopbgm.rawValue:
-                StopBGMController.shared.SetAnimation(dic: dic!, vc: self, key: key)
+                StopBGMController.shared.SetAnimation(dic: dic, vc: self, key: "")
                 break;
             case TagName.Spine.rawValue:
                 Timer.scheduledTimer(timeInterval: time.msToSeconds, target: self, selector: #selector(PathVC.Recall), userInfo: nil, repeats: false)
@@ -104,22 +96,29 @@ class PathVC: UIViewController {
                 Timer.scheduledTimer(timeInterval: time.msToSeconds, target: self, selector: #selector(PathVC.Recall), userInfo: nil, repeats: false)
                 break;
             case TagName.End.rawValue:
-                SelectViewController.shared.SetEndView(vc: self, key: key)
+                SelectViewController.shared.SetEndView(vc: self, key: "")
                 self.view.addSubview(SelectViewController.shared)
                 FileHelper.shared.StopAllOggPlayer()
-                
                 break;
             default:
                 
                 break;
             }
-            //Timer.scheduledTimer(timeInterval: time.msToSeconds, target: self, selector: #selector(PathVC.Recall), userInfo: nil, repeats: false)
-            print((dic!["tagName"] as! String))
-            print(key)
         }
     }
     
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        isback = true;
+        DisponseObjects()
+    }
+    
     func RestartAnimation(){
+        DisponseObjects()
+        LoadAnimation()
+    }
+    
+    func DisponseObjects(){
         Helper.hideParentKeys.removeAll()
         Helper.moveChilds.removeAll()
         FileHelper.playersOtherInPlayModes.removeAll()
@@ -128,9 +127,24 @@ class PathVC: UIViewController {
             value.removeFromSuperview()
             displayedImages.removeValue(forKey: key);
         }
+        DefaultController.dispose()
+        FadeController.dispose()
+        CharacterController.dispose()
+        CharacterHideController.dispose()
+        CharacterMoveController.dispose()
+        WaitController.dispose()
+        PlaySeController.dispose()
+        StopSeController.dispose()
+        PlayBgmController.dispose()
+        PlayVoiceController.dispose()
+        StopBGMController.dispose()
+        SpineController.dispose()
+        SpineHideController.dispose()
+        SpineMoveController.dispose()
+        QuakeController.dispose()
+        SelectViewController.dispose()
+        EndController.dispose()
         index = 0;
-        LoadAnimation()
-        
     }
     
     @objc func Recall(){

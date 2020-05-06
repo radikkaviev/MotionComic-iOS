@@ -9,7 +9,15 @@
 import UIKit
 
 class CharacterHideController: NSObject {
-    static let shared = CharacterHideController()
+   private static var sharedInstance: CharacterHideController?
+    class var shared : CharacterHideController {
+        guard let sharedInstance = self.sharedInstance else {
+            let sharedInstance = CharacterHideController()
+            self.sharedInstance = sharedInstance
+            return sharedInstance
+        }
+        return sharedInstance
+    }
     private var _vc:PathVC!
     public func SetAnimation(dic:[String:AnyObject],vc:PathVC,key:String){
         self._vc = vc;
@@ -17,49 +25,57 @@ class CharacterHideController: NSObject {
         var time:Int = 0
         var wait:Bool?
         var name:String = ""
-        
+        var label:String = ""
         
         if let blurValue = (dic["blur"]){
-            blur = Int((blurValue as! [String:AnyObject])["value"] as! String)!
+            blur = Int(blurValue as! String)!
         }
         if let timeVal = (dic["time"]){
-            time = Int((timeVal as! [String:AnyObject])["value"] as! String)!
+            time = Int(timeVal as! String)!
         }
         if let waitVal = (dic["wait"]){
-            wait = ((waitVal as! [String:AnyObject])["value"] as! Bool)
+            wait = Bool(waitVal as! String)
         }
         if let imageURLVal = (dic["image"]){
-            name = ((imageURLVal as! [String:AnyObject])["value"] as! String)
+            name = (imageURLVal  as! String)
+        }
+        if let labelVal = (dic["label"]){
+            label = (labelVal as! String)
         }
         
-        if let parent = (dic["parent"]){
-           var waittime:Int = 0
-           var duration:Double = 0;
-           if(!wait!){
-               duration = time.msToSeconds;
-           }
-           else{
-            if(time==0){
-                waittime = 500
-            }else{
-               waittime = time;
-            }
-           }
-            DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + waittime.msToSeconds, execute: { () -> Void in
-                print("previous parent")
-                print(parent as! String)
-                let imgView =  vc.displayedImages[parent as! String]
-                UIView.animate(withDuration: duration, animations: { () -> Void in
-                    if(imgView != nil){
-                        imgView?.alpha = 0;
-                        //vc.displayedImages.removeValue(forKey: parent as! String)
-                    }
+        
+        var waittime:Int = 0
+        var duration:Double = 0;
+        if(!wait!){
+            duration = time.msToSeconds;
+        }
+        else{
+           waittime = time;
+//            if(wait!){
+//                vc.index = vc.index + 1
+//                vc.LoadAnimation()
+//            }
+        }
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now()+waittime.msToSeconds, execute: { () -> Void in
+            
+            let imgView =  vc.displayedImages[label]
+            UIView.animate(withDuration: duration, animations: { () -> Void in
+                if(imgView != nil){
+                    imgView?.alpha = 0;
+                    vc.displayedImages.removeValue(forKey: label)
+                }
+                //if(!wait!){
                     vc.index = vc.index + 1
                     vc.LoadAnimation()
-                })
+                //}
             })
-           
-        }
+        })
+    }
+    
+    class func dispose()
+    {
+        CharacterHideController.sharedInstance = nil
+        print("Disposed Singleton instance")
     }
 }
 

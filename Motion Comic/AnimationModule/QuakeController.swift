@@ -9,6 +9,19 @@
 import UIKit
 
 class QuakeController: NSObject {
-    static let shared = QuakeController()
+    private static var sharedInstance: QuakeController?
+    class var shared : QuakeController {
+        guard let sharedInstance = self.sharedInstance else {
+            let sharedInstance = QuakeController()
+            self.sharedInstance = sharedInstance
+            return sharedInstance
+        }
+        return sharedInstance
+    }
     private var _vc:PathVC!
+    class func dispose()
+    {
+        QuakeController.sharedInstance = nil
+        print("Disposed Singleton instance")
+    }
 }

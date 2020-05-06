@@ -9,7 +9,15 @@
 import UIKit
 
 class PlayVoiceController: NSObject {
-    static let shared = PlayVoiceController()
+    private static var sharedInstance: PlayVoiceController?
+    class var shared : PlayVoiceController {
+        guard let sharedInstance = self.sharedInstance else {
+            let sharedInstance = PlayVoiceController()
+            self.sharedInstance = sharedInstance
+            return sharedInstance
+        }
+        return sharedInstance
+    }
     private var _vc:PathVC!
     public func SetAnimation(dic:[String:AnyObject],vc:PathVC,key:String){
         self._vc = vc;
@@ -22,17 +30,20 @@ class PlayVoiceController: NSObject {
         var children:[String:AnyObject]
         
         if let audioval = (dic["audio"]){
-            audio = ((audioval as! [String:AnyObject])["value"] as! String)
+            audio = (audioval as! String)
+            if(audio.components(separatedBy: "__pp").count>1){
+                audio = audio.components(separatedBy: "__pp")[1]
+            }
         }
         if let nameval = (dic["name"]){
-            name = ((nameval as! [String:AnyObject])["value"] as! String)
+            name = (nameval as! String)
         }
         
         if let volumeVal = (dic["volume"]){
-            volume = Int((volumeVal as! [String:AnyObject])["value"] as! String)!
+            volume = Int(volumeVal as! String)!
         }
         if let laterVal = (dic["laterTime"]){
-            later = Int((laterVal as! [String:AnyObject])["value"] as! String)!
+            later = Int(laterVal as! String)!
         }
         if let childrenVal = (dic["children"]){
             children = ((childrenVal as! [String:AnyObject]))
@@ -43,18 +54,21 @@ class PlayVoiceController: NSObject {
         }
         
         if let loopVal = (dic["loop"]){
-            loop = ((loopVal as! [String:AnyObject])["value"] as! Bool)
+            loop = Bool(loopVal as! String)
         }
-        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now() + later.msToSeconds, execute: { () -> Void in
-            UIView.animate(withDuration: 0, animations: { () -> Void in
-                let filename = URL.init(fileURLWithPath: ((dic["name"] as! [String:AnyObject])["value"] as! String)).lastPathComponent
-                if(parent==0){
-                    FileHelper.shared.PlayOggFile(playFile: "sound/voice/\(filename)")
-                }
-               vc.index = vc.index + 1
-               vc.LoadAnimation();
+        DispatchQueue.main.asyncAfter(deadline: DispatchTime.now(), execute: { () -> Void in
+            UIView.animate(withDuration:  later.msToSeconds, animations: { () -> Void in
+                let filename = URL.init(fileURLWithPath: (dic["name"] as! String)).lastPathComponent
+                FileHelper.shared.PlayOggFile(playFile: audio.removingPercentEncoding!)
+                vc.index = vc.index + 1
+                vc.LoadAnimation();
             })
         })
-       
+    }
+    
+    class func dispose()
+    {
+        PlayVoiceController.sharedInstance = nil
+        print("Disposed Singleton instance")
     }
 }

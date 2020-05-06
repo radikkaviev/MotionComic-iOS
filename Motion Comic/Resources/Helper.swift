@@ -18,7 +18,9 @@ public class Helper{
     public static var hideParentKeys:[String] = [String]();
     public static var senarioFilterData:[String:[String:AnyObject]] = [String:[String:AnyObject]]();
     public static var childArr:[String] = [String]();
+    public static var FrameArr:[String] = [String]();
     public static var moveChilds:[String] = [String]();
+    public static var animationList:[[String:AnyObject]] = [[String:AnyObject]]();
     public static var charActionArr:[TagName] = [TagName.CharaMove,TagName.CharaHide]
     public static func ShowAlert(title:String,message:String,btntitle:String,vc:UIViewController)
     {
@@ -82,11 +84,22 @@ public class Helper{
     
 }
 
+public extension Collection where Element: StringProtocol {
+    func sortedNumerically(_ result: ComparisonResult) -> [Element] {
+        return sorted { $0.compare($1, options: .numeric) == result }
+    }
+}
+public extension MutableCollection where Element: StringProtocol, Self: RandomAccessCollection {
+    mutating func sortNumerically(_ result: ComparisonResult) {
+        sort { $0.compare($1, options: .numeric) == result }
+    }
+}
+
 public enum TagName: String {
     case CharaMove = "chara_move"
     case CharaHide = "chara_hide"
     case Stopse = "stopse"
-    case Sfade = "sfade"
+    case Sfade = "fade"
     case Charashow = "chara_show"
     case Playvoice = "playvoice"
     case Wait = "wait"
@@ -106,6 +119,19 @@ public enum TagName: String {
 public enum AudioFileType: String {
     case OGG = "ogg"
     case MP3 = "mp3"
+}
+
+extension NSMutableDictionary {
+  
+  var swiftDictionary: [String : AnyObject] {
+    var swiftDictionary: [String : AnyObject] = [:]
+    let keys = self.allKeys.flatMap { $0 as? String }
+    for key in keys {
+      let keyValue = self.value(forKey: key) as AnyObject
+      swiftDictionary[key] = keyValue
+    }
+    return swiftDictionary
+  }
 }
 
 extension String {

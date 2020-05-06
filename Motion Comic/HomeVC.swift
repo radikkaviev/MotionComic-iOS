@@ -39,58 +39,45 @@ class HomeVC: UIViewController,WKNavigationDelegate,WKUIDelegate {
         Helper.ShowLoadder(message: "Processing..")
         DispatchQueue.global(qos: .background).async {
             FileHelper.shared.GetJSONString();
-            let senarioJSOn = FileHelper.shared.read(fromDocumentsWithFileName: "STK/scenario/main.sc")
-            Helper.senarioDic = Helper.convertToDictionary(text: senarioJSOn)
-            Helper.senarioDicLinks = (Helper.senarioDic!["links"] as! [AnyObject])
-            Helper.senarioAllKeys.removeAll()
-            Helper.senarioFilterData.removeAll()
-            Helper.childArr.removeAll()
-            for (key, value) in (Helper.senarioDic!["data"] as! [String:AnyObject]) {
-                Helper.senarioAllKeys.append(key);
-//                if let isparent = value["parent"]{
-//                    if (isparent as? String) == nil{
-//                        if let objexist = Helper.senarioFilterData[key]{
-//                            print("exist")
-//                        }
-//                        else{
-//
-//                            let dicarr = (Helper.senarioDic!["data"] as! [String:AnyObject]).filter({ (arg0) -> Bool in
-//
-//                                let (_, value1) = arg0
-//                                if let parent = value1["parent"] as? String{
-//                                    return (value1["parent"] as! String) == key
-//                                }
-//                                return false
-//                                }
-//                            )
-//                            if(key == "280"){
-//                                print(key)
-//                            }
-//                            if(!Helper.childArr.contains(key)){
-//                                for k in dicarr.keys {
-//                                    Helper.childArr.append(k)
-//                                }
-//                                Helper.senarioFilterData[key] = dicarr
-//                                Helper.senarioAllKeys.append(key);
-//                            }
-//
-//                        }
-//                    }
-//                }
-                
+            //let senarioJSOn = FileHelper.shared.read(fromDocumentsWithFileName: "STK/scenario/main.sc")
+            let senarioJSOn = FileHelper.shared.read(fromDocumentsWithFileName: "STK/script/main.ssk")
+            let arrScript = senarioJSOn.components(separatedBy: .newlines)
+            Helper.animationList.removeAll()
+            for obj in arrScript{
+                let arrobjects = obj.replacingOccurrences(of: "[", with: "").replacingOccurrences(of: "]", with: "").replacingOccurrences(of: "\"", with: "").components(separatedBy: .whitespaces)
+                var jsonObject: [String:AnyObject] = [String:AnyObject]()
+                print("arraobj+-\(arrobjects)")
+                for objKey in arrobjects{
+                    if(objKey != "" && objKey != "animations" && objKey != "<select" ){
+                        let arrObjKeys = (objKey as! String).split(separator: "=")
+                        if(arrObjKeys.count>1){
+                            jsonObject[String(arrObjKeys[0])] = arrObjKeys[1] as AnyObject
+                            //jsonObject.setValue(String(arrObjKeys[1]), forKey: String(arrObjKeys[0]))
+                        }
+                        else{
+                            print("tagName+-\(arrObjKeys[0] as AnyObject)")
+                            if((jsonObject["tagName"]) == nil){
+                                jsonObject["tagName"] = arrObjKeys[0] as AnyObject
+                            }
+                            //jsonObject.setValue(String(arrObjKeys[0]), forKey: "tagname")
+                        }
+                    }
+                }
+                if(jsonObject.keys.count>0){
+                    Helper.animationList.append(jsonObject)
+                }
             }
-            //print(Helper.childArr)
-            Helper.senarioAllKeys = Helper.senarioAllKeys.sorted()
-            //print(Helper.senarioAllKeys)
-//          //print(Helper.tagArr)
             DispatchQueue.main.async {
                 let pathVC = storyBoard.instantiateViewController(withIdentifier: "PathVC") as! PathVC
                 self.navigationController?.pushViewController(pathVC, animated: true)
                 Helper.HideLoadder()
             }
+            
         }
+        
     }
 }
+
 
 //MARK:- UIDocumentPickerDelegate
 extension HomeVC: UIDocumentPickerDelegate {

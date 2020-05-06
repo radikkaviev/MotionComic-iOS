@@ -9,7 +9,15 @@
 import UIKit
 
 class SelectViewController: UIView {
-    static let shared = SelectViewController()
+    private static var sharedInstance: SelectViewController?
+    class var shared : SelectViewController {
+        guard let sharedInstance = self.sharedInstance else {
+            let sharedInstance = SelectViewController()
+            self.sharedInstance = sharedInstance
+            return sharedInstance
+        }
+        return sharedInstance
+    }
     private var _vc:PathVC!
     public func SetEndView(vc:PathVC,key:String){
         self._vc = vc;
@@ -27,25 +35,27 @@ class SelectViewController: UIView {
                 stackView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
 
                 
-                let dicSub = Helper.senarioDic!["data"]
-                let subDic = (dicSub as! [String:AnyObject]).filter { (arg0) -> Bool in
-                    let (_, value1) = arg0
-                    return ((value1["tagName"] as! String) == TagName.Select.rawValue)
-                    
+               let arrFrame = Helper.animationList
+                let subDic = arrFrame.filter {
+                    if($0.keys.count>0){
+                        print($0["tagName"] as! String)
+                       return ($0["tagName"] as! String) == "select"
+                    }
+                    return false;
                 }
-                if (subDic as? [String:AnyObject]) != nil{
+                if (subDic as? [[String:AnyObject]]) != nil{
                     
-                    for (key2 , value2) in (subDic as! [String:AnyObject]){
+                    for value2 in subDic{
                         if let imageURLVal = (value2["image"]){
                             
-                            let image = URL.init(fileURLWithPath: (imageURLVal as! [String:AnyObject])["value"] as! String).lastPathComponent.removingPercentEncoding!
+                            let image = URL.init(fileURLWithPath: (imageURLVal as! String)).lastPathComponent.removingPercentEncoding!
                             let imgData = FileHelper.shared.GetEndImageFormZipFolder(fileName:image) as Data
                             let button = UIButton.init()
                             let Image = UIImage.init(data: imgData as Data)
                             button.setBackgroundImage(Image, for: UIControl.State.normal)
                             button.frame = CGRect.init(x:0, y: 0, width:200, height: 40)
                             if let title = (value2["text"]){
-                                button.setTitle(((title as! [String:AnyObject])["value"] as! String), for: UIControl.State.normal)
+                                button.setTitle((title as! String), for: UIControl.State.normal)
                                 button.titleLabel?.textColor = UIColor.white
                                
                             }
@@ -63,5 +73,10 @@ class SelectViewController: UIView {
     @IBAction func StartAnimation(){
         _vc.RestartAnimation()
         self.removeFromSuperview()
+    }
+    class func dispose()
+    {
+        SelectViewController.sharedInstance = nil
+        print("Disposed Singleton instance")
     }
 }

@@ -9,6 +9,19 @@
 import UIKit
 
 class SpineHideController: NSObject {
-    static let shared = SpineHideController()
+    private static var sharedInstance: SpineHideController?
+    class var shared : SpineHideController {
+        guard let sharedInstance = self.sharedInstance else {
+            let sharedInstance = SpineHideController()
+            self.sharedInstance = sharedInstance
+            return sharedInstance
+        }
+        return sharedInstance
+    }
     private var _vc:PathVC!
+    class func dispose()
+    {
+        SpineHideController.sharedInstance = nil
+        print("Disposed Singleton instance")
+    }
 }
